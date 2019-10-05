@@ -1,48 +1,37 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(PlantsApp());
+import 'src/utils/acacia.dart';
+import 'src/utils/theme.dart';
+import 'src/utils/routes.dart';
 
-class PlantsApp extends StatelessWidget {
+/* 
+  * Creo que todos sabemos qué es un main ¯\_(ツ)_/¯
+
+  * runApp es un método que como tal ejecuta el
+  * widget que se le mande, en este caso, 
+  * un MaterialApp
+*/
+void main() => runApp(Acacia());
+
+class Acacia extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    /* 
+      MaterialApp es el widget padre que 
+      contiene todos los demás widgets,
+      tiene el estilo de Android(Material)
+
+      Si se quisiera usar el estilo de iOS
+      tendría que usarse una CupertinoApp
+    */
+
     return MaterialApp(
-      title: 'Material App',
+      title: appName,
+      theme: theme,
+      initialRoute: initialRoute,
+      routes: routes,
+      // esto quita la cinta que dice debug
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-        primaryColor: Colors.green,
-      ),
-      home: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(100.0),
-          child: AppBar(
-            title: Text('Solicitudes'),
-          ),
-        ),
-        body: Center(
-          child: Container(
-            child: Text('Hello World'),
-          ),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              title: Text('Home'),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              title: Text('Profile'),
-            ),
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          backgroundColor: Theme.of(context).primaryColor,
-          onPressed: () {},
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      ),
     );
   }
 }
