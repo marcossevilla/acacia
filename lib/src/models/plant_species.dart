@@ -22,4 +22,12 @@ class PlantSpecies {
     description = json['description'];
     photoURL = json['photo'];
   }
+
+  Map<String, dynamic> toJson() => {
+        'common_name': commonName,
+        'scientific_name': scientificName,
+        'family': family.toJson(),
+        'description': description,
+        'photo': photoURL,
+      };
 }

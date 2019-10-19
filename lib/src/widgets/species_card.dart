@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:plants_app/src/models/plant_species.dart';
+
+import '../models/plant_species.dart';
 
 class SpeciesCard extends StatelessWidget {
   final PlantSpecies plant;
@@ -18,10 +19,10 @@ class SpeciesCard extends StatelessWidget {
         children: <Widget>[
           Image.network(
             plant.photoURL,
-            fit: BoxFit.cover,
+            fit: BoxFit.fill,
           ),
           Padding(
-            padding: EdgeInsets.all(15.0),
+            padding: EdgeInsets.all(20.0),
             child: Center(
               child: Column(
                 children: <Widget>[
@@ -29,12 +30,12 @@ class SpeciesCard extends StatelessWidget {
                     plant.commonName,
                     style: Theme.of(context).textTheme.title,
                   ),
-                  SizedBox(height: 5.0),
+                  SizedBox(height: 10.0),
                   Text(
                     plant.family.name,
                     style: Theme.of(context).textTheme.subtitle,
                   ),
-                  SizedBox(height: 5.0),
+                  SizedBox(height: 10.0),
                   Text(
                     plant.description,
                     style: Theme.of(context).textTheme.caption,

@@ -10,4 +10,6 @@ class PlantFamily {
   PlantFamily(this.name);
 
   PlantFamily.fromJson(Map<String, dynamic> json) : name = json['family_name'];
+
+  Map<String, dynamic> toJson() => {'family_name': name};
 }
