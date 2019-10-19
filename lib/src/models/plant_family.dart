@@ -4,9 +4,10 @@
   si quieren
 */
 
-class Plant {
+class PlantFamily {
   String name;
 
-  // un pinche constructor
-  Plant(this.name);
+  PlantFamily(this.name);
+
+  PlantFamily.fromJson(Map<String, dynamic> json) : name = json['family_name'];
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:plants_app/src/networking/species_network.dart';
+import 'package:plants_app/src/widgets/species_card.dart';
 
 import '../utils/acacia.dart';
-import '../widgets/requests.dart';
+import '../models/plant_species.dart';
 
 /* 
  *  Bienvenidos a su primer StatefulWidget :D
@@ -38,23 +40,60 @@ class _HomePageState extends State<HomePage> {
   */
 
   int currentIndex = 0; // para controlar en qué pestaña está
+  bool isLoading = true;
+  List<PlantSpecies> speciesList;
+  SpeciesNetwork speciesNetwork = SpeciesNetwork();
+
+  _fetchSpecies() async {
+    setState(() => isLoading = true);
+    var res = await speciesNetwork.getAllSpecies();
+    setState(() => speciesList = res);
+    setState(() => isLoading = false);
+  }
 
   @override
   Widget build(BuildContext context) {
+    _fetchSpecies();
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
+        elevation: 0.0,
         title: Text(
           appName,
           style: Theme.of(context).textTheme.display1,
         ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: () => _fetchSpecies(),
+          ),
+        ],
       ),
       // * bienvenidos a su primer widget customizado :D
-      body: Requests(),
+      body: !isLoading
+          ? ListView.builder(
+              itemCount: speciesList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: SpeciesCard(plant: speciesList[index]),
+                );
+              },
+            )
+          : Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Theme.of(context).primaryColorLight,
+              ),
+            ),
       bottomNavigationBar: BigBottomNavBar(
         currentIndex: currentIndex,
         onTap: (index) => setState(() => currentIndex = index),
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {},
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
