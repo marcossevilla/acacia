@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:plants_app/src/models/plant_specimen.dart';
+import 'package:plants_app/src/models/recolector.dart';
+import 'package:plants_app/src/networking/recolector_network.dart';
+import 'package:plants_app/src/networking/specimen_network.dart';
+import 'package:plants_app/src/pages/specimen_page.dart';
 
 import 'add_specimen_page.dart';
 
@@ -20,18 +25,28 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int currentIndex = 0;
   List<PlantSpecies> speciesList = List();
+  List<PlantSpecimen> specimens = List();
   SpeciesNetwork speciesNetwork = SpeciesNetwork();
+  SpecimenNetwork specimenNetwork = SpecimenNetwork();
   FamilyNetwork familyNetwork = FamilyNetwork();
+  List<Recolector> recolectors = List();
+  RecolectorNetwork recolectorNetwork = RecolectorNetwork();
 
-  _fetchSpecies() async {
-    var res = await speciesNetwork.getAllSpecies();
-    setState(() => speciesList = res);
+  _fetchData() async {
+    var sps = await speciesNetwork.getAllSpecies();
+    var spc = await specimenNetwork.getAllSpecimens();
+    var rec = await recolectorNetwork.getAllRecolectors();
+    setState(() {
+      speciesList = sps;
+      specimens = spc;
+      recolectors = rec;
+    });
   }
 
   @override
   void initState() {
     super.initState();
-    _fetchSpecies();
+    _fetchData();
   }
 
   @override
@@ -46,7 +61,7 @@ class _HomePageState extends State<HomePage> {
               Theme.of(context).textTheme.title.copyWith(color: Colors.white),
         ),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.refresh), onPressed: _fetchSpecies),
+          IconButton(icon: Icon(Icons.refresh), onPressed: _fetchData),
         ],
       ),
       body: _loadPage(currentIndex),
@@ -61,16 +76,17 @@ class _HomePageState extends State<HomePage> {
           builder: (context) => AddSpecimen(),
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 
   Widget _loadPage(int index) {
     switch (index) {
       case 0:
-        return SpeciesPage(list: speciesList);
+        return SpecimenPage(list: specimens);
       case 1:
-        return RecolectorPage();
+        return SpeciesPage(list: speciesList);
+      case 2:
+        return RecolectorPage(list: recolectors);
       default:
         return SpeciesPage(list: speciesList);
     }

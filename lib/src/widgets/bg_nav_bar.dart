@@ -20,12 +20,16 @@ class BigBottomNavBar extends StatelessWidget {
         onTap: onTap,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
+            icon: Icon(FontAwesomeIcons.leaf, size: 20.0),
+            title: Text('Especimenes'),
+          ),
+          BottomNavigationBarItem(
             icon: Icon(FontAwesomeIcons.seedling, size: 20.0),
-            title: Text('Species'),
+            title: Text('Especies'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person, size: 20.0),
-            title: Text('Recolectors'),
+            title: Text('Recolectores'),
           ),
         ],
       ),

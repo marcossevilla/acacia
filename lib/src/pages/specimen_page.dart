@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:plants_app/src/models/plant_specimen.dart';
+import 'package:plants_app/src/widgets/specimen_card.dart';
 
-import '../widgets/species_card.dart';
+class SpecimenPage extends StatelessWidget {
+  final List<PlantSpecimen> list;
 
-class SpeciesPage extends StatelessWidget {
-  final List list;
-
-  const SpeciesPage({Key key, this.list}) : super(key: key);
+  const SpecimenPage({Key key, this.list}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return list.isEmpty
         ? Center(
             child: CircularProgressIndicator(
-              backgroundColor: Theme.of(context).primaryColorLight,
+              backgroundColor: Colors.white,
             ),
           )
         : ListView.builder(
@@ -20,10 +20,10 @@ class SpeciesPage extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               return Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: 15.0,
+                  horizontal: 20.0,
                   vertical: 10.0,
                 ),
-                child: SpeciesCard(plant: list[index]),
+                child: SpecimenCard(specimen: list[index]),
               );
             },
           );

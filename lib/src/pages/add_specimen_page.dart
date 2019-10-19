@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:plants_app/src/networking/family_network.dart';
-import 'package:plants_app/src/networking/species_network.dart';
+import 'package:plants_app/src/networking/specimen_network.dart';
+
+import '../networking/family_network.dart';
+import '../networking/species_network.dart';
 
 import '../models/status.dart';
 import '../models/recolector.dart';
@@ -17,11 +19,10 @@ class _AddSpecimenState extends State<AddSpecimen> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   FamilyNetwork _familyNetwork = FamilyNetwork();
   SpeciesNetwork _speciesNetwork = SpeciesNetwork();
+  SpecimenNetwork _specimenNetwork = SpecimenNetwork();
 
-  Recolector _recolector;
-  Status _status;
-  PlantFamily _family;
-  PlantSpecies _species;
+  Recolector _recolector = Recolector();
+  Status _status = Status();
 
   // plant family dropdowns
   List<PlantFamily> _families = List();
@@ -75,13 +76,13 @@ class _AddSpecimenState extends State<AddSpecimen> {
             TextFormField(
               textCapitalization: TextCapitalization.sentences,
               decoration: InputDecoration(labelText: 'Nombre del recolector'),
-              onSaved: (value) => _recolector.name = value,
+              onSaved: (value) => setState(() => _recolector.name = value),
               validator: (value) =>
                   value.isEmpty ? 'No has llenado el campo!' : null,
             ),
             TextFormField(
               decoration: InputDecoration(labelText: 'Estado'),
-              onSaved: (value) => _status.name = value,
+              onSaved: (value) => setState(() => _status.name = value),
               validator: (value) =>
                   value.isEmpty ? 'No has llenado el campo!' : null,
             ),
@@ -143,7 +144,7 @@ class _AddSpecimenState extends State<AddSpecimen> {
     );
   }
 
-  _postNewSpecimen() {
+  _postNewSpecimen() async {
     if (!_formKey.currentState.validate()) return;
 
     _formKey.currentState.save();
@@ -155,10 +156,12 @@ class _AddSpecimenState extends State<AddSpecimen> {
       '',
       '${now.year}-${now.month}-${now.day}',
       _status,
-      _species,
-      _family,
+      _currentSpecies,
+      _currentFamily,
     );
 
-    print(_specimen);
+    await _specimenNetwork.postSpecimen(_specimen);
+
+    print('finished');
   }
 }
