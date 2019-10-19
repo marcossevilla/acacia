@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:plants_app/src/networking/family_network.dart';
 
 import 'add_specimen_page.dart';
 
 import '../utils/acacia.dart';
+import '../pages/species_page.dart';
 import '../widgets/bg_nav_bar.dart';
-import '../widgets/species_card.dart';
 import '../models/plant_species.dart';
+import '../pages/recolector_page.dart';
+import '../networking/family_network.dart';
 import '../networking/species_network.dart';
 
 class HomePage extends StatefulWidget {
@@ -48,24 +49,7 @@ class _HomePageState extends State<HomePage> {
           IconButton(icon: Icon(Icons.refresh), onPressed: _fetchSpecies),
         ],
       ),
-      body: speciesList.isEmpty
-          ? Center(
-              child: CircularProgressIndicator(
-                backgroundColor: Theme.of(context).primaryColorLight,
-              ),
-            )
-          : ListView.builder(
-              itemCount: speciesList.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 15.0,
-                    vertical: 10.0,
-                  ),
-                  child: SpeciesCard(plant: speciesList[index]),
-                );
-              },
-            ),
+      body: _loadPage(currentIndex),
       bottomNavigationBar: BigBottomNavBar(
         currentIndex: currentIndex,
         onTap: (index) => setState(() => currentIndex = index),
@@ -79,5 +63,16 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
+  }
+
+  Widget _loadPage(int index) {
+    switch (index) {
+      case 0:
+        return SpeciesPage(list: speciesList);
+      case 1:
+        return RecolectorPage();
+      default:
+        return SpeciesPage(list: speciesList);
+    }
   }
 }

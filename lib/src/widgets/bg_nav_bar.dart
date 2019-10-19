@@ -25,7 +25,7 @@ class BigBottomNavBar extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person, size: 20.0),
-            title: Text('Profile'),
+            title: Text('Recolectors'),
           ),
         ],
       ),
