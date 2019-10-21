@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:plants_app/src/models/plant_specimen.dart';
-import 'package:plants_app/src/widgets/specimen_card.dart';
+
+import '../models/plant_specimen.dart';
+import '../widgets/specimen_card.dart';
 
 class SpecimenPage extends StatelessWidget {
   final List<PlantSpecimen> list;

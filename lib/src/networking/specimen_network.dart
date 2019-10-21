@@ -19,7 +19,6 @@ class SpecimenNetwork {
         final plant = PlantSpecimen.fromJson(item);
         specimens.add(plant);
       }
-
       return specimens;
     } else {
       return specimens;

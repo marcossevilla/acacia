@@ -14,7 +14,6 @@ class Acacia extends StatelessWidget {
       theme: theme,
       initialRoute: initialRoute,
       routes: routes,
-      // esto quita la cinta que dice debug
       debugShowCheckedModeBanner: false,
     );
   }

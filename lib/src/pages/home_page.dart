@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:plants_app/src/models/plant_specimen.dart';
-import 'package:plants_app/src/models/recolector.dart';
-import 'package:plants_app/src/networking/recolector_network.dart';
-import 'package:plants_app/src/networking/specimen_network.dart';
-import 'package:plants_app/src/pages/specimen_page.dart';
 
+import 'specimen_page.dart';
 import 'add_specimen_page.dart';
+import 'species_page.dart';
+import 'recolector_page.dart';
 
 import '../utils/acacia.dart';
-import '../pages/species_page.dart';
 import '../widgets/bg_nav_bar.dart';
+import '../models/recolector.dart';
 import '../models/plant_species.dart';
-import '../pages/recolector_page.dart';
+import '../models/plant_specimen.dart';
 import '../networking/family_network.dart';
 import '../networking/species_network.dart';
+import '../networking/specimen_network.dart';
+import '../networking/recolector_network.dart';
 
 class HomePage extends StatefulWidget {
   static const String routeName = 'home';

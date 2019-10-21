@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/species_card.dart';
+import '../models/plant_species.dart';
 
 class SpeciesPage extends StatelessWidget {
-  final List list;
+  final List<PlantSpecies> list;
 
   const SpeciesPage({Key key, this.list}) : super(key: key);
 

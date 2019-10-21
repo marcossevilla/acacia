@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:plants_app/src/networking/specimen_network.dart';
 
 import '../networking/family_network.dart';
 import '../networking/species_network.dart';
+import '../networking/specimen_network.dart';
 
 import '../models/status.dart';
 import '../models/recolector.dart';
@@ -162,6 +162,12 @@ class _AddSpecimenState extends State<AddSpecimen> {
 
     await _specimenNetwork.postSpecimen(_specimen);
 
-    print('finished');
+    Navigator.pop(context);
+
+    // Scaffold.of(context).showSnackBar(
+    //   SnackBar(
+    //     content: Text('Guardado!'),
+    //   ),
+    // );
   }
 }
