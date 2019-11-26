@@ -3,14 +3,11 @@ import 'package:plants_app/src/utils/acacia.dart';
 
 import '../models/plant_species.dart';
 import '../models/plant_specimen.dart';
-import '../models/recolector.dart';
 import '../networking/family_network.dart';
-import '../networking/recolector_network.dart';
 import '../networking/species_network.dart';
 import '../networking/specimen_network.dart';
 import '../widgets/bg_nav_bar.dart';
 import 'add_specimen_page.dart';
-import 'recolector_page.dart';
 import 'species_page.dart';
 import 'specimen_page.dart';
 
@@ -23,22 +20,18 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int currentIndex = 0;
-  List<PlantSpecies> speciesList = List();
+  List<Species> speciesList = List();
   List<PlantSpecimen> specimens = List();
   SpeciesNetwork speciesNetwork = SpeciesNetwork();
   SpecimenNetwork specimenNetwork = SpecimenNetwork();
   FamilyNetwork familyNetwork = FamilyNetwork();
-  List<Recolector> recolectors = List();
-  RecolectorNetwork recolectorNetwork = RecolectorNetwork();
 
   _fetchData() async {
     var sps = await speciesNetwork.getAllSpecies();
     var spc = await specimenNetwork.getAllSpecimens();
-    var rec = await recolectorNetwork.getAllRecolectors();
     setState(() {
       speciesList = sps;
       specimens = spc;
-      recolectors = rec;
     });
   }
 
@@ -84,8 +77,6 @@ class _HomePageState extends State<HomePage> {
         return SpecimenPage(list: specimens);
       case 1:
         return SpeciesPage(list: speciesList);
-      case 2:
-        return RecolectorPage(list: recolectors);
       default:
         return SpeciesPage(list: speciesList);
     }

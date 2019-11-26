@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../models/recolector.dart';
+import '../models/user.dart';
 
 class RecolectorPage extends StatelessWidget {
-  final List<Recolector> list;
+  final List<User> list;
 
   const RecolectorPage({Key key, this.list}) : super(key: key);
 
@@ -25,12 +25,12 @@ class RecolectorPage extends StatelessWidget {
                       vertical: 20.0,
                     ),
                     child: ListTile(
-                      leading: CircleAvatar(
-                        radius: 25.0,
-                        backgroundImage: NetworkImage(
-                          list[index].photoURL,
-                        ),
-                      ),
+//                      leading: CircleAvatar(
+//                        radius: 25.0,
+//                        backgroundImage: NetworkImage(
+//                          list[index].photoURL,
+//                        ),
+//                      ),
                       title: Text(
                         list[index].name,
                         style: Theme.of(context).textTheme.title,

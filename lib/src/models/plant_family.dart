@@ -1,15 +1,27 @@
-/* 
-  Este modelo es sólo un ejemplo para mostrar 
-  una lista de las solicitudes, pueden cambiarlo 
-  si quieren
-*/
-
-class PlantFamily {
+class Family {
+  int id;
   String name;
+  String type;
+  Family family;
 
-  PlantFamily(this.name);
+  Family({
+    this.id,
+    this.name,
+    this.type,
+    this.family,
+  });
 
-  PlantFamily.fromJson(Map<String, dynamic> json) : name = json['family_name'];
+  factory Family.fromJson(Map<String, dynamic> json) => Family(
+        id: json["id"],
+        name: json["name"],
+        type: json["type"],
+        family: json["family"] == null ? null : Family.fromJson(json["family"]),
+      );
 
-  Map<String, dynamic> toJson() => {'family_name': name};
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "type": type,
+        "family": family == null ? null : family.toJson(),
+      };
 }

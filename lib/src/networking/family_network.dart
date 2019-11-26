@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import '../networking/urls.dart';
 import '../models/plant_family.dart';
+import '../networking/urls.dart';
 
 class FamilyNetwork {
-  Future<List<PlantFamily>> getAllFamilies() async {
-    List<PlantFamily> families = List();
+  Future<List<Family>> getAllFamilies() async {
+    List<Family> families = List();
 
     final res = await http.get('$baseURL/family');
 
@@ -16,7 +16,7 @@ class FamilyNetwork {
 
       if (data == null) return [];
       for (var item in data['results']) {
-        final plant = PlantFamily.fromJson(item);
+        final plant = Family.fromJson(item);
         families.add(plant);
       }
       return families;

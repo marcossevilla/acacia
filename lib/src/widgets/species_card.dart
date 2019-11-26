@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/plant_species.dart';
 
 class SpeciesCard extends StatelessWidget {
-  final PlantSpecies plant;
+  final Species plant;
 
   const SpeciesCard({
     Key key,
@@ -18,7 +18,7 @@ class SpeciesCard extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Image.network(
-            plant.photoURL,
+            plant.photo,
             fit: BoxFit.fill,
           ),
           Padding(

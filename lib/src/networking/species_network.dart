@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import '../networking/urls.dart';
 import '../models/plant_species.dart';
+import '../networking/urls.dart';
 
 class SpeciesNetwork {
-  Future<List<PlantSpecies>> getAllSpecies() async {
-    List<PlantSpecies> species = [];
+  Future<List<Species>> getAllSpecies() async {
+    List<Species> species = [];
 
     final res = await http.get('$baseURL/species');
 
@@ -17,7 +17,7 @@ class SpeciesNetwork {
       if (data == null) return [];
 
       for (var item in data['results']) {
-        final plant = PlantSpecies.fromJson(item);
+        final plant = Species.fromJson(item);
         species.add(plant);
       }
       return species;

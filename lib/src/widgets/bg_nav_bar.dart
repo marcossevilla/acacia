@@ -27,10 +27,10 @@ class BigBottomNavBar extends StatelessWidget {
             icon: Icon(FontAwesomeIcons.seedling, size: 20.0),
             title: Text('Especies'),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person, size: 20.0),
-            title: Text('Recolectores'),
-          ),
+//          BottomNavigationBarItem(
+//            icon: Icon(Icons.person, size: 20.0),
+//            title: Text('Recolectores'),
+//          ),
         ],
       ),
     );

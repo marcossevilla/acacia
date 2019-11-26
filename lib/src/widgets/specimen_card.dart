@@ -12,7 +12,7 @@ class SpecimenCard extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Image.network(
-            specimen.photoURL,
+            specimen.photo,
             fit: BoxFit.fill,
           ),
           Padding(
@@ -30,7 +30,7 @@ class SpecimenCard extends StatelessWidget {
                 ),
                 SizedBox(height: 10.0),
                 Text(
-                  'Registrado por: ${specimen.recolector.name}',
+                  'Registrado por: ${specimen.user.name}',
                   style: Theme.of(context).textTheme.subtitle,
                 ),
               ],

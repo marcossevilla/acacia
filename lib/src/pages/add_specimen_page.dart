@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
+import '../models/plant_family.dart';
+import '../models/plant_species.dart';
+import '../models/status.dart';
+import '../models/user.dart';
 import '../networking/family_network.dart';
 import '../networking/species_network.dart';
 import '../networking/specimen_network.dart';
 
-import '../models/status.dart';
-import '../models/recolector.dart';
-import '../models/plant_family.dart';
-import '../models/plant_species.dart';
-import '../models/plant_specimen.dart';
-
 class AddSpecimen extends StatefulWidget {
   @override
-  _AddSpecimenState createState() => _AddSpecimenState();
+  State<StatefulWidget> createState() {
+    return _AddSpecimenState();
+  }
 }
 
 class _AddSpecimenState extends State<AddSpecimen> {
@@ -21,16 +21,16 @@ class _AddSpecimenState extends State<AddSpecimen> {
   SpeciesNetwork _speciesNetwork = SpeciesNetwork();
   SpecimenNetwork _specimenNetwork = SpecimenNetwork();
 
-  Recolector _recolector = Recolector();
+  User _recolector = User();
   Status _status = Status();
 
   // plant family dropdowns
-  List<PlantFamily> _families = List();
-  PlantFamily _currentFamily;
+  List<Family> _families = List();
+  Family _currentFamily;
 
   // plant species dropdowns
-  List<PlantSpecies> _speciesList = List();
-  PlantSpecies _currentSpecies;
+  List<Species> _speciesList = List();
+  Species _currentSpecies;
 
   _fetchData() async {
     var fams = await _familyNetwork.getAllFamilies();
@@ -94,11 +94,11 @@ class _AddSpecimenState extends State<AddSpecimen> {
                     children: <Widget>[
                       Text('Especie'),
                       Spacer(),
-                      DropdownButton<PlantSpecies>(
+                      DropdownButton<Species>(
                         value: _currentSpecies,
                         items: _speciesList
                             .map(
-                              (s) => DropdownMenuItem<PlantSpecies>(
+                              (s) => DropdownMenuItem<Species>(
                                 value: s,
                                 child: Text(s.commonName),
                               ),
@@ -117,11 +117,11 @@ class _AddSpecimenState extends State<AddSpecimen> {
                     children: <Widget>[
                       Text('Familia'),
                       Spacer(),
-                      DropdownButton<PlantFamily>(
+                      DropdownButton<Family>(
                         value: _currentFamily,
                         items: _families
                             .map(
-                              (f) => DropdownMenuItem<PlantFamily>(
+                              (f) => DropdownMenuItem<Family>(
                                 value: f,
                                 child: Text(f.name),
                               ),
@@ -151,16 +151,18 @@ class _AddSpecimenState extends State<AddSpecimen> {
 
     var now = DateTime.now();
 
-    PlantSpecimen _specimen = PlantSpecimen(
-      _recolector,
-      '',
-      '${now.year}-${now.month}-${now.day}',
-      _status,
-      _currentSpecies,
-      _currentFamily,
-    );
+    // TODO: cambiar a nueva info para hacer post de especimen
 
-    await _specimenNetwork.postSpecimen(_specimen);
+//    PlantSpecimen _specimen = PlantSpecimen(
+//      _recolector,
+//      '',
+//      '${now.year}-${now.month}-${now.day}',
+//      _status,
+//      _currentSpecies,
+//      _currentFamily,
+//    );
+
+//    await _specimenNetwork.postSpecimen(_specimen);
 
     Navigator.pop(context);
 
