@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../utils/acacia.dart';
 import '../widgets/bg_nav_bar.dart';
+import '../search/search_delegate.dart';
 
 import 'login_page.dart';
-import 'species_page.dart';
 import 'specimen_page.dart';
-import 'recolector_page.dart';
 import 'add_specimen_page.dart';
+import 'notification_page.dart';
 
 class HomePage extends StatefulWidget {
   static const String routeName = 'home';
@@ -27,9 +27,18 @@ class _HomePageState extends State<HomePage> {
         elevation: 0.0,
         title: Text(
           appName,
-          style:
-              Theme.of(context).textTheme.title.copyWith(color: Colors.white),
+          style: Theme.of(context).textTheme.title.copyWith(
+                color: Colors.white,
+              ),
         ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              showSearch(context: context, delegate: SpecimenSearch());
+            },
+          )
+        ],
       ),
       body: _loadPage(currentIndex),
       bottomNavigationBar: BigBottomNavBar(
@@ -43,7 +52,7 @@ class _HomePageState extends State<HomePage> {
           builder: (context) => AddSpecimen(),
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
@@ -52,13 +61,11 @@ class _HomePageState extends State<HomePage> {
       case 0:
         return SpecimenPage();
       case 1:
-        return SpeciesPage();
+        return NotificationPage();
       case 2:
-        return RecolectorPage();
-      case 3:
         return LoginPage();
       default:
-        return SpeciesPage();
+        return SpecimenPage();
     }
   }
 }

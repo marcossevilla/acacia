@@ -29,14 +29,6 @@ class BigBottomNavBar extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              FontAwesomeIcons.search,
-              size: 20.0,
-              color: Theme.of(context).primaryColor,
-            ),
-            title: Container(),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
               FontAwesomeIcons.bell,
               size: 20.0,
               color: Theme.of(context).primaryColor,
