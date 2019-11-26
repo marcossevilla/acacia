@@ -6,7 +6,7 @@ import '../models/status.dart';
 import '../models/user.dart';
 import '../networking/family_network.dart';
 import '../networking/species_network.dart';
-import '../networking/specimen_network.dart';
+// import '../networking/specimen_network.dart';
 
 class AddSpecimen extends StatefulWidget {
   @override
@@ -19,7 +19,7 @@ class _AddSpecimenState extends State<AddSpecimen> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   FamilyNetwork _familyNetwork = FamilyNetwork();
   SpeciesNetwork _speciesNetwork = SpeciesNetwork();
-  SpecimenNetwork _specimenNetwork = SpecimenNetwork();
+  // SpecimenNetwork _specimenNetwork = SpecimenNetwork();
 
   User _recolector = User();
   Status _status = Status();
