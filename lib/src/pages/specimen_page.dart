@@ -28,23 +28,23 @@ class _SpecimenPageState extends State<SpecimenPage> {
   }
 
   @override
+  void setState(fn) {
+    if (this.mounted) {
+      super.setState(fn);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
-            'Especímenes',
-            textAlign: TextAlign.center,
-          ),
+          title: Text('Especímenes'),
           bottom: TabBar(
             tabs: <Widget>[
-              Tab(
-                icon: Icon(FontAwesomeIcons.spa),
-              ),
-              Tab(
-                icon: Icon(FontAwesomeIcons.spa),
-              ),
+              Tab(text: 'Plantas'),
+              Tab(text: 'Hongos'),
             ],
           ),
         ),

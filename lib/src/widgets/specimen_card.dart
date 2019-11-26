@@ -9,6 +9,8 @@ class SpecimenCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 5.0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
       child: Column(
         children: <Widget>[
           // Image.network(
@@ -28,10 +30,21 @@ class SpecimenCard extends StatelessWidget {
                   specimen.family.name,
                   style: Theme.of(context).textTheme.subhead,
                 ),
-                SizedBox(height: 10.0),
-                Text(
-                  'Registrado por: ${specimen.user.firstName + ' ' + specimen.user.lastName}',
-                  style: Theme.of(context).textTheme.subtitle,
+                Text('${specimen.description}'),
+                Text('${specimen.location}'),
+                Text('${specimen.dateReceived.year}'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Icon(
+                      Icons.person,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    Text(
+                      '${specimen.user.firstName + ' ' + specimen.user.lastName}',
+                      style: Theme.of(context).textTheme.subtitle,
+                    ),
+                  ],
                 ),
               ],
             ),

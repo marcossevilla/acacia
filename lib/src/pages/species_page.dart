@@ -10,23 +10,27 @@ class SpeciesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return list.isEmpty
-        ? Center(
-            child: CircularProgressIndicator(
-              backgroundColor: Theme.of(context).primaryColorLight,
-            ),
-          )
-        : ListView.builder(
-            itemCount: list.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 15.0,
-                  vertical: 10.0,
-                ),
-                child: SpeciesCard(plant: list[index]),
-              );
-            },
-          );
+    // return list.isEmpty
+    //     ? Center(
+    //         child: CircularProgressIndicator(
+    //           backgroundColor: Theme.of(context).primaryColorLight,
+    //         ),
+    //       )
+    //     : ListView.builder(
+    //         itemCount: list.length,
+    //         itemBuilder: (BuildContext context, int index) {
+    //           return Padding(
+    //             padding: EdgeInsets.symmetric(
+    //               horizontal: 15.0,
+    //               vertical: 10.0,
+    //             ),
+    //             child: SpeciesCard(plant: list[index]),
+    //           );
+    //         },
+    //       );
+
+    return Container(
+      color: Colors.red,
+    );
   }
 }
