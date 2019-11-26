@@ -1,8 +1,9 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:plants_app/src/models/recolector.dart';
-import 'package:plants_app/src/networking/urls.dart';
+
+import '../models/recolector.dart';
+import '../networking/urls.dart';
 
 class RecolectorNetwork {
   Future<List<Recolector>> getAllRecolectors() async {

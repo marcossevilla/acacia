@@ -14,7 +14,7 @@ class BigBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 100.0,
+      height: 75.0,
       child: BottomNavigationBar(
         currentIndex: currentIndex,
         onTap: onTap,

@@ -8,4 +8,4 @@
 */
 
 // si es un valor que no va a cambiar en compilación, usen const
-const String appName = 'Acacia';
+const String appName = 'Herbario Nacional';

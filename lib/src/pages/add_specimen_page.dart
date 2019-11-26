@@ -38,8 +38,8 @@ class _AddSpecimenState extends State<AddSpecimen> {
     setState(() {
       _families = fams;
       _speciesList = species;
-      _currentFamily = _families[0];
-      _currentSpecies = _speciesList[0];
+      // _currentFamily = _families[0];
+      // _currentSpecies = _speciesList[0];
     });
   }
 
