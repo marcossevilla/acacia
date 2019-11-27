@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../pages/home_page.dart';
+import '../pages/add_specimen_page.dart';
 
 // * initialRoute == primera pantalla que se verá
 const String initialRoute = HomePage.routeName;
@@ -25,4 +26,5 @@ const String initialRoute = HomePage.routeName;
 
 Map<String, WidgetBuilder> routes = {
   HomePage.routeName: (BuildContext context) => HomePage(),
+  AddSpecimen.routeName: (BuildContext context) => AddSpecimen(),
 };

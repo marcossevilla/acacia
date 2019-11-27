@@ -37,7 +37,7 @@ class BigBottomNavBar extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.person,
+              FontAwesomeIcons.user,
               size: 20.0,
               color: Theme.of(context).primaryColor,
             ),

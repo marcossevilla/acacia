@@ -40,8 +40,9 @@ class _SpecimenPageState extends State<SpecimenPage> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Especímenes'),
-          bottom: TabBar(
+          titleSpacing: 0.0,
+          title: TabBar(
+            indicatorSize: TabBarIndicatorSize.label,
             tabs: <Widget>[
               Tab(text: 'Plantas'),
               Tab(text: 'Hongos'),

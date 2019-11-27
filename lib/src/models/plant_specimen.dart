@@ -1,8 +1,9 @@
 import 'dart:convert';
 
+import 'user.dart';
+import 'genus.dart';
 import 'plant_family.dart';
 import 'plant_species.dart';
-import 'user.dart';
 
 PlantSpecimen plantSpecimenFromJson(String str) =>
     PlantSpecimen.fromJson(json.decode(str));
@@ -12,7 +13,6 @@ String plantSpecimenToJson(PlantSpecimen data) => json.encode(data.toJson());
 // TODO: arreglar los modelos de country, state, city. State necesita otro nombre.
 
 class PlantSpecimen {
-  int id;
   Biostatus biostatus;
   dynamic photo;
   DateTime dateReceived;
@@ -24,17 +24,14 @@ class PlantSpecimen {
   bool complete;
   User user;
   Family family;
-  Family genus;
+  Genus genus;
   Species species;
   Biostatus status;
   Biostatus ecosystem;
   Biostatus recollectionAreaStatus;
   Biostatus country;
-//  State state;
-//  City city;
 
   PlantSpecimen({
-    this.id,
     this.biostatus,
     this.photo,
     this.dateReceived,
@@ -57,7 +54,6 @@ class PlantSpecimen {
   });
 
   factory PlantSpecimen.fromJson(Map<String, dynamic> json) => PlantSpecimen(
-        id: json["id"],
         biostatus: Biostatus.fromJson(json["biostatus"]),
         photo: json["photo"],
         dateReceived: DateTime.parse(json["date_received"]),
@@ -69,7 +65,7 @@ class PlantSpecimen {
         complete: json["complete"],
         user: User.fromJson(json["user"]),
         family: Family.fromJson(json["family"]),
-        genus: Family.fromJson(json["genus"]),
+        genus: Genus.fromJson(json["genus"]),
         species: Species.fromJson(json["species"]),
         status: Biostatus.fromJson(json["status"]),
         ecosystem: Biostatus.fromJson(json["ecosystem"]),
@@ -81,7 +77,6 @@ class PlantSpecimen {
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
         "biostatus": biostatus.toJson(),
         "photo": photo,
         "date_received":
