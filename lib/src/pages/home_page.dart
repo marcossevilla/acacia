@@ -4,7 +4,7 @@ import '../utils/acacia.dart';
 import '../widgets/bg_nav_bar.dart';
 import '../search/search_delegate.dart';
 
-import 'login_page.dart';
+import 'no_login_page.dart';
 import 'specimen_page.dart';
 import 'add_specimen_page.dart';
 import 'notification_page.dart';
@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
       case 1:
         return NotificationPage();
       case 2:
-        return LoginPage();
+        return NoLoginPage();
       default:
         return SpecimenPage();
     }

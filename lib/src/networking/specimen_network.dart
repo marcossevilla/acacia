@@ -12,7 +12,6 @@ class SpecimenNetwork {
 
     if (res.statusCode == 200) {
       var data = jsonDecode(res.body);
-
       // print(data);
 
       if (data == null) return [];

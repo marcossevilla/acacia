@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:plants_app/src/pages/login_page.dart';
+import 'package:plants_app/src/pages/register_page.dart';
 
 import '../pages/home_page.dart';
 
@@ -25,4 +27,6 @@ const String initialRoute = HomePage.routeName;
 
 Map<String, WidgetBuilder> routes = {
   HomePage.routeName: (BuildContext context) => HomePage(),
+  LoginPage.routeName: (BuildContext context) => LoginPage(),
+  RegisterPage.routeName: (BuildContext context) => RegisterPage()
 };
