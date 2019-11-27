@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plants_app/src/models/nested_specimen.dart';
 import 'package:plants_app/src/shared/preferences.dart';
 
 import '../models/user.dart';
@@ -406,8 +407,8 @@ class _AddSpecimenState extends State<AddSpecimen> {
 
     _formKey.currentState.save();
 
-    PlantSpecimen _specimen = PlantSpecimen(
-      biostatus: _currentBiostatus,
+    NestedSpecimen _specimen = NestedSpecimen(
+      biostatus: _currentBiostatus.id,
       photo: null,
       dateReceived: DateTime.now(),
       numberOfSamples: _plantSpecimen.numberOfSamples,
@@ -416,16 +417,16 @@ class _AddSpecimenState extends State<AddSpecimen> {
       longitude: null,
       location: _plantSpecimen.location,
       complete: true,
-      user: User(id: 1),
-      family: _currentFamily,
-      genus: _currentGenus,
-      species: _currentSpecies,
-      status: _currentStatus,
-      ecosystem: _currentEcosystem,
-      recollectionAreaStatus: _currentRecollectionArea,
-      country: _currentCountry,
-      state: _currentState,
-      city: _currentCity,
+      user: 1,
+      family: _currentFamily.id,
+      genus: _currentGenus.id,
+      species: _currentSpecies.id,
+      status: _currentStatus.id,
+      ecosystem: _currentEcosystem.id,
+      recolectionAreaStatus: _currentRecollectionArea.id,
+      country: _currentCountry.id,
+      state: _currentState.id,
+      city: _currentCity.id,
     );
 
     bool itWorked = await _specimenNetwork.postSpecimen(_specimen);

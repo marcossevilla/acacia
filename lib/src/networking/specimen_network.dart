@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:plants_app/src/models/nested_specimen.dart';
 
 import '../networking/urls.dart';
 import '../shared/preferences.dart';
@@ -30,7 +31,7 @@ class SpecimenNetwork {
     }
   }
 
-  Future<bool> postSpecimen(PlantSpecimen specimen) async {
+  Future<bool> postSpecimen(NestedSpecimen specimen) async {
     final res = await http.post(
       '$baseURL/plant_specimen',
       body: jsonEncode(specimen.toJson()),
