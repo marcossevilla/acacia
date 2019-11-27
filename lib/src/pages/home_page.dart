@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../utils/acacia.dart';
 import '../widgets/bg_nav_bar.dart';
-import '../search/search_delegate.dart';
 
-import 'login_page.dart';
+import 'no_login_page.dart';
 import 'specimen_page.dart';
 import 'add_specimen_page.dart';
 import 'notification_page.dart';
@@ -26,23 +24,6 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Theme.of(context).primaryColor,
-      appBar: AppBar(
-        elevation: 0.0,
-        title: Text(
-          appName,
-          style: Theme.of(context).textTheme.title.copyWith(
-                color: Colors.white,
-              ),
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(FontAwesomeIcons.search),
-            onPressed: () {
-              showSearch(context: context, delegate: SpecimenSearch());
-            },
-          )
-        ],
-      ),
       body: _loadPage(currentIndex),
       bottomNavigationBar: BigBottomNavBar(
         currentIndex: currentIndex,
@@ -63,7 +44,7 @@ class _HomePageState extends State<HomePage> {
       case 1:
         return NotificationPage();
       case 2:
-        return LoginPage();
+        return NoLoginPage();
       default:
         return SpecimenPage();
     }

@@ -35,4 +35,12 @@ class UserPreferences {
   set permanentToken(String value) {
     _prefs.setString('permanent-token', value);
   }
+
+  get tokenRefresh {
+    return _prefs.getString('token-refresh') ?? 'no-token';
+  }
+
+  set tokenRefresh(String value) {
+    _prefs.setString('token-refresh', value);
+  }
 }
