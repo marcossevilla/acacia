@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:plants_app/src/models/genus.dart';
 import 'package:plants_app/src/models/plant_specimen.dart';
+import 'package:plants_app/src/networking/specimen_props.dart';
 import 'package:plants_app/src/utils/validators.dart';
 
 import '../models/status.dart';
@@ -23,27 +25,52 @@ class _AddSpecimenState extends State<AddSpecimen> {
   FamilyNetwork _familyNetwork = FamilyNetwork();
   SpeciesNetwork _speciesNetwork = SpeciesNetwork();
   SpecimenNetwork _specimenNetwork = SpecimenNetwork();
+  SpecimenPropsNetwork _propsNetwork = SpecimenPropsNetwork();
 
   PlantSpecimen _plantSpecimen = PlantSpecimen();
 
   Status _status = Status();
 
-  // plant family dropdowns
+  List<Biostatus> _biostatus = List();
+  Biostatus _currentBiostatus;
+
+  List<Genus> _genuses = List();
+  Genus _currentGenus;
+
   List<Family> _families = List();
   Family _currentFamily;
 
-  // plant species dropdowns
   List<Species> _speciesList = List();
   Species _currentSpecies;
+
+  List<Biostatus> _ecosystems = List();
+  Biostatus _currentEcosystem;
+
+  List<Biostatus> _recollectionArea = List();
+  Biostatus _currentRecollectionArea;
+
+  /*
+    "ecosystem"
+    "recolection_area_status"
+    "country"
+    "state"
+    "city
+   */
 
   _fetchData() async {
     var fams = await _familyNetwork.getAllFamilies();
     var species = await _speciesNetwork.getAllSpecies();
+    var biostatus = await _propsNetwork.getBiostatuses();
+    var genuses = await _propsNetwork.getGenuses();
     setState(() {
       _families = fams;
       _speciesList = species;
-      // _currentFamily = _families[0];
-      // _currentSpecies = _speciesList[0];
+      _biostatus = biostatus;
+      _genuses = genuses;
+      _currentFamily = _families[0];
+      _currentSpecies = _speciesList[0];
+      _currentBiostatus = _biostatus[0];
+      _currentGenus = genuses[0];
     });
   }
 
@@ -98,7 +125,38 @@ class _AddSpecimenState extends State<AddSpecimen> {
                     ? 'No has llenado el campo o no ingresaste un número'
                     : null,
               ),
+              TextFormField(
+                decoration: InputDecoration(labelText: 'Ubicación'),
+                onSaved: (value) => setState(
+                  () => _plantSpecimen.location = value,
+                ),
+                validator: (value) =>
+                    value.isEmpty ? 'No has llenado el campo!' : null,
+              ),
               SizedBox(height: 30.0),
+              _families.isEmpty
+                  ? Center(child: CircularProgressIndicator())
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        Text('Bioestado'),
+                        Spacer(),
+                        DropdownButton<Biostatus>(
+                          value: _currentBiostatus,
+                          items: _biostatus
+                              .map(
+                                (f) => DropdownMenuItem<Biostatus>(
+                                  value: f,
+                                  child: Text(f.name),
+                                ),
+                              )
+                              .toList(),
+                          onChanged: (value) =>
+                              setState(() => _currentBiostatus = value),
+                        ),
+                      ],
+                    ),
+              SizedBox(height: 20.0),
               _speciesList.isEmpty
                   ? Center(child: CircularProgressIndicator())
                   : Row(
@@ -118,6 +176,29 @@ class _AddSpecimenState extends State<AddSpecimen> {
                               .toList(),
                           onChanged: (value) =>
                               setState(() => _currentSpecies = value),
+                        ),
+                      ],
+                    ),
+              SizedBox(height: 20.0),
+              _genuses.isEmpty
+                  ? Center(child: CircularProgressIndicator())
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        Text('Género'),
+                        Spacer(),
+                        DropdownButton<Genus>(
+                          value: _currentGenus,
+                          items: _genuses
+                              .map(
+                                (g) => DropdownMenuItem<Genus>(
+                                  value: g,
+                                  child: Text(g.name),
+                                ),
+                              )
+                              .toList(),
+                          onChanged: (value) =>
+                              setState(() => _currentGenus = value),
                         ),
                       ],
                     ),
@@ -177,11 +258,5 @@ class _AddSpecimenState extends State<AddSpecimen> {
     // await _specimenNetwork.postSpecimen(_specimen);
 
     Navigator.pop(context);
-
-    // Scaffold.of(context).showSnackBar(
-    //   SnackBar(
-    //     content: Text('Guardado!'),
-    //   ),
-    // );
   }
 }

@@ -14,8 +14,10 @@ class FamilyNetwork {
     if (res.statusCode == 200) {
       var data = jsonDecode(res.body);
 
+      print(data);
+
       if (data == null) return [];
-      for (var item in data['results']) {
+      for (var item in data) {
         final plant = Family.fromJson(item);
         families.add(plant);
       }

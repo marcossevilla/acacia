@@ -16,7 +16,7 @@ class SpeciesNetwork {
 
       if (data == null) return [];
 
-      for (var item in data['results']) {
+      for (var item in data) {
         final plant = Species.fromJson(item);
         species.add(plant);
       }

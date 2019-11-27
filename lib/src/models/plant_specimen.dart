@@ -10,8 +10,6 @@ PlantSpecimen plantSpecimenFromJson(String str) =>
 
 String plantSpecimenToJson(PlantSpecimen data) => json.encode(data.toJson());
 
-// TODO: arreglar los modelos de country, state, city. State necesita otro nombre.
-
 class PlantSpecimen {
   Biostatus biostatus;
   dynamic photo;
@@ -30,6 +28,7 @@ class PlantSpecimen {
   Biostatus ecosystem;
   Biostatus recollectionAreaStatus;
   Biostatus country;
+  City city;
 
   PlantSpecimen({
     this.biostatus,
@@ -49,8 +48,8 @@ class PlantSpecimen {
     this.ecosystem,
     this.recollectionAreaStatus,
     this.country,
-//    this.state,
-//    this.city,
+    this.state,
+    this.city,
   });
 
   factory PlantSpecimen.fromJson(Map<String, dynamic> json) => PlantSpecimen(
@@ -72,8 +71,8 @@ class PlantSpecimen {
         recollectionAreaStatus:
             Biostatus.fromJson(json["recolection_area_status"]),
         country: Biostatus.fromJson(json["country"]),
-//        state: State.fromJson(json["state"]),
-//        city: City.fromJson(json["city"]),
+        state: CountryState.fromJson(json["state"]),
+        city: City.fromJson(json["city"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -95,8 +94,8 @@ class PlantSpecimen {
         "ecosystem": ecosystem.toJson(),
         "recolection_area_status": recollectionAreaStatus.toJson(),
         "country": country.toJson(),
-//        "state": state.toJson(),
-//        "city": city.toJson(),
+        "state": state.toJson(),
+        "city": city.toJson(),
       };
 }
 
@@ -120,50 +119,50 @@ class Biostatus {
       };
 }
 
-//class City {
-//  int id;
-//  State state;
-//  String name;
-//
-//  City({
-//    this.id,
-//    this.state,
-//    this.name,
-//  });
-//
-//  factory City.fromJson(Map<String, dynamic> json) => City(
-//        id: json["id"],
-//        state: State.fromJson(json["state"]),
-//        name: json["name"],
-//      );
-//
-//  Map<String, dynamic> toJson() => {
-//        "id": id,
-//        "state": state.toJson(),
-//        "name": name,
-//      };
-//}
-//
-//class State {
-//  int id;
-//  Biostatus country;
-//  String name;
-//
-//  State({
-//    this.id,
-//    this.country,
-//    this.name,
-//  });
-//
-//  factory State.fromJson(Map<String, dynamic> json) => State(
-//        id: json["id"],
-//        country: Biostatus.fromJson(json["country"]),
-//        name: json["name"],
-//      );
-//
-//  Map<String, dynamic> toJson() => {
-//        "id": id,
-//        "country": country.toJson(),
-//        "name": name,
-//      };
-//}
+class City {
+  int id;
+  CountryState state;
+  String name;
+
+  City({
+    this.id,
+    this.state,
+    this.name,
+  });
+
+  factory City.fromJson(Map<String, dynamic> json) => City(
+        id: json["id"],
+        state: State.fromJson(json["state"]),
+        name: json["name"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "state": state.toJson(),
+        "name": name,
+      };
+}
+
+class CountryState {
+  int id;
+  Biostatus country;
+  String name;
+
+  State({
+    this.id,
+    this.country,
+    this.name,
+  });
+
+  factory State.fromJson(Map<String, dynamic> json) => State(
+        id: json["id"],
+        country: Biostatus.fromJson(json["country"]),
+        name: json["name"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "country": country.toJson(),
+        "name": name,
+      };
+}
