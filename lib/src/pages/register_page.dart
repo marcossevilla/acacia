@@ -38,7 +38,7 @@ class _RegisterPageState extends State<RegisterPage> {
       child: Form(
         key: _formKey,
         child: Padding(
-          padding: const EdgeInsets.only(top: 60, left: 20, right: 20, bottom: 30),
+          padding: const EdgeInsets.only(top: 30, left: 20, right: 20, bottom: 30),
           child: ListView(
             children: <Widget>[
               Padding(
@@ -185,8 +185,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: OutlineButton (
                     onPressed: () {
                       if (_formKey.currentState.validate()) {
-                        RegisterNetwork login = RegisterNetwork();
-                        login.postUser(
+                        RegisterNetwork register = RegisterNetwork();
+                        register.postUser(
                           User(
                             profile: null,
                             firstName: nameController.text,
