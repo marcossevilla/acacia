@@ -56,12 +56,12 @@ class PlantSpecimen {
 
   factory PlantSpecimen.fromJson(Map<String, dynamic> json) => PlantSpecimen(
         biostatus: Biostatus.fromJson(json["biostatus"]),
-        photo: json["photo"],
+        // photo: json["photo"],
         dateReceived: DateTime.parse(json["date_received"]),
         numberOfSamples: json["number_of_samples"],
         description: json["description"],
-        latitude: json["latitude"],
-        longitude: json["longitude"],
+        // latitude: json["latitude"],
+        // longitude: json["longitude"],
         location: json["location"],
         complete: json["complete"],
         user: User.fromJson(json["user"]),

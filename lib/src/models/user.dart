@@ -58,6 +58,6 @@ class User {
         "is_active": isActive,
         "date_joined": dateJoined.toString(),
         "name": name,
-        "groups": List<dynamic>.from(groups.map((x) => x)),
+        // "groups": List<dynamic>.from(groups.map((x) => x)),
       };
 }

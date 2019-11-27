@@ -31,6 +31,8 @@ class SpecimenNetwork {
       body: jsonEncode(specimen.toJson()),
     );
 
+    print(res.statusCode);
+
     if (res.statusCode == 200) {
       return true;
     } else {

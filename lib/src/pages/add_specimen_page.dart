@@ -145,7 +145,7 @@ class _AddSpecimenState extends State<AddSpecimen> {
                   () => _plantSpecimen.numberOfSamples = int.parse(value),
                 ),
                 validator: (value) =>
-                    value.isEmpty == false ? 'No has llenado el campo!' : null,
+                    value.isEmpty ? 'No has llenado el campo!' : null,
               ),
               TextFormField(
                 decoration: InputDecoration(labelText: 'Ubicación'),
@@ -425,11 +425,9 @@ class _AddSpecimenState extends State<AddSpecimen> {
       city: _currentCity,
     );
 
-    print(_specimen.toString());
+    bool itWorked = await _specimenNetwork.postSpecimen(_specimen);
 
-    // bool itWorked = await _specimenNetwork.postSpecimen(_specimen);
-
-    // print(itWorked);
+    print(itWorked);
 
     Navigator.pop(context);
   }
