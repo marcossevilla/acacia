@@ -35,6 +35,7 @@ class SpecimenNetwork {
       '$baseURL/plant_specimen',
       body: jsonEncode(specimen.toJson()),
       headers: {
+        'Content-Type': 'application/json',
         'token-access': prefs.token,
         'token-refresh': prefs.tokenRefresh,
       },
