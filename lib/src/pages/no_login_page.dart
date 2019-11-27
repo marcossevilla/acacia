@@ -12,6 +12,7 @@ class _NoLoginPageState extends State<NoLoginPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.white,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -22,38 +23,52 @@ class _NoLoginPageState extends State<NoLoginPage> {
               style: Theme.of(context)
                   .textTheme
                   .title
-                  .copyWith(color: Colors.white),
+                  .copyWith(color: Colors.green),
               textAlign: TextAlign.center,
             ),
-            Column(
-              children: <Widget>[
-                RaisedButton(
-                  color: Colors.white,
-                  child: Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Text('Registrarme'),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 20),
+                    child: SizedBox(
+                      height: 50,
+                      child: RaisedButton(
+                        color: Theme.of(context).primaryColor,
+                        child: Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: Text('Registrarme', style: TextStyle(fontSize: 16, color: Colors.white),),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(RegisterPage.routeName);
+                        },
+                      ),
+                    ),
                   ),
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(RegisterPage.routeName);
-                  },
-                ),
-                RaisedButton(
-                  color: Colors.white,
-                  child: Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Text('Iniciar Sesión'),
+                  SizedBox(
+                    height: 50,
+                    child: OutlineButton(
+                      color: Theme.of(context).primaryColor,
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(LoginPage.routeName);
+                      },
+                      borderSide: BorderSide(
+                          color: Theme.of(context).primaryColor, //Color of the border
+                          style: BorderStyle.solid, //Style of the border
+                          width: 0.8, //width of the border
+                        ),
+                        textColor: Theme.of(context).primaryColor,
+                        child: Text(
+                          "Iniciar sesión",
+                          style: TextStyle(fontSize: 16)
+                        ),
+                    ),
                   ),
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(LoginPage.routeName);
-                  },
-                ),
-              ],
+                ],
+              ),
             ),
-            Icon(
-              FontAwesomeIcons.piedPiperHat,
-              color: Colors.white,
-              size: 50.0,
-            )
           ],
         ),
       ),
