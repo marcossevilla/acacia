@@ -2,7 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class UserPreferences {
   // singleton implementation
-  static final UserPreferences _instance = new UserPreferences._internal();
+  static final UserPreferences _instance = UserPreferences._internal();
 
   factory UserPreferences() {
     return _instance;

@@ -10,6 +10,8 @@ class SpecimenNetwork {
 
     final res = await http.get('$baseURL/plant_specimen/');
 
+    print(res.statusCode);
+
     if (res.statusCode == 200) {
       var data = jsonDecode(res.body);
 
@@ -27,7 +29,7 @@ class SpecimenNetwork {
 
   Future<bool> postSpecimen(PlantSpecimen specimen) async {
     final res = await http.post(
-      '$baseURL/specimen',
+      '$baseURL/plant_specimen',
       body: jsonEncode(specimen.toJson()),
     );
 

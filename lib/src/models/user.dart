@@ -1,4 +1,5 @@
 class User {
+  int id;
   dynamic profile;
   DateTime lastLogin;
   bool isSuperuser;
@@ -15,6 +16,7 @@ class User {
   List<String> user_permissions;
 
   User({
+    this.id,
     this.profile,
     this.lastLogin,
     this.isSuperuser,
@@ -28,10 +30,11 @@ class User {
     this.dateJoined,
     this.name,
     this.groups,
-    this.user_permissions
+    this.user_permissions,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
+        id: json['id'],
         profile: json["profile"],
         lastLogin: DateTime.parse(json["last_login"]),
         isSuperuser: json["is_superuser"],
@@ -44,11 +47,12 @@ class User {
         isActive: json["is_active"],
         dateJoined: DateTime.parse(json["date_joined"]),
         name: json["name"],
-        groups: List<int>.from(json["groups"].map((x) => x)),
-        user_permissions: List<String>.from(json["user_permissions"].map((x) => x)),
+        // groups: List<int>.from(json["groups"].map((x) => x)),
+        // user_permissions: List<String>.from(json["user_permissions"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
+        "id": id,
         "profile": profile,
         "last_login": lastLogin.toString(),
         "is_superuser": isSuperuser,
