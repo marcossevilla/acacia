@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../search/search_delegate.dart';
 
 import '../models/plant_specimen.dart';
-import '../networking/specimen_network.dart';
 import '../widgets/specimen_card.dart';
+import '../search/search_delegate.dart';
+import '../networking/specimen_network.dart';
 
 class SpecimenPage extends StatefulWidget {
   @override

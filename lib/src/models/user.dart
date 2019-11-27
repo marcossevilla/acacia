@@ -50,7 +50,7 @@ class User {
 
   Map<String, dynamic> toJson() => {
         "profile": profile,
-        "last_login": lastLogin.toIso8601String(),
+        "last_login": lastLogin.toString(),
         "is_superuser": isSuperuser,
         "username": username,
         "first_name": firstName,
@@ -59,9 +59,8 @@ class User {
         "password": password,
         "is_staff": isStaff,
         "is_active": isActive,
-        "date_joined": dateJoined.toIso8601String(),
+        "date_joined": dateJoined.toString(),
         "name": name,
-        "groups": List<dynamic>.from(groups.map((x) => x)),
-        "user_permissions": List<dynamic>.from(user_permissions.map((x) => x)),
+        // "groups": List<dynamic>.from(groups.map((x) => x)),
       };
 }

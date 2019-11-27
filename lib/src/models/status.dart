@@ -1,9 +1,19 @@
 class Status {
+  int id;
   String name;
 
-  Status({this.name});
+  Status({
+    this.id,
+    this.name,
+  });
 
-  Status.fromJson(Map<String, dynamic> json) : name = json['status_name'];
+  factory Status.fromJson(Map<String, dynamic> json) => Status(
+        id: json["id"],
+        name: json["name"],
+      );
 
-  Map<String, dynamic> toJson() => {'status_name': name};
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+      };
 }

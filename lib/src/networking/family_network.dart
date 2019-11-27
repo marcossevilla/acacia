@@ -15,7 +15,7 @@ class FamilyNetwork {
       var data = jsonDecode(res.body);
 
       if (data == null) return [];
-      for (var item in data['results']) {
+      for (var item in data) {
         final plant = Family.fromJson(item);
         families.add(plant);
       }

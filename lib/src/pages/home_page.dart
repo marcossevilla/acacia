@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../widgets/bg_nav_bar.dart';
 
@@ -15,11 +16,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Theme.of(context).primaryColor,
       body: _loadPage(currentIndex),
       bottomNavigationBar: BigBottomNavBar(
@@ -28,10 +31,7 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () => showModalBottomSheet(
-          context: context,
-          builder: (context) => AddSpecimen(),
-        ),
+        onPressed: () => Navigator.pushNamed(context, AddSpecimen.routeName),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );

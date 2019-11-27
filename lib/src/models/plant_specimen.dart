@@ -1,18 +1,17 @@
 import 'dart:convert';
 
+import 'user.dart';
+import 'genus.dart';
+import 'status.dart';
 import 'plant_family.dart';
 import 'plant_species.dart';
-import 'user.dart';
 
 PlantSpecimen plantSpecimenFromJson(String str) =>
     PlantSpecimen.fromJson(json.decode(str));
 
 String plantSpecimenToJson(PlantSpecimen data) => json.encode(data.toJson());
 
-// TODO: arreglar los modelos de country, state, city. State necesita otro nombre.
-
 class PlantSpecimen {
-  int id;
   Biostatus biostatus;
   dynamic photo;
   DateTime dateReceived;
@@ -24,17 +23,16 @@ class PlantSpecimen {
   bool complete;
   User user;
   Family family;
-  Family genus;
+  Genus genus;
   Species species;
-  Biostatus status;
+  Status status;
   Biostatus ecosystem;
   Biostatus recollectionAreaStatus;
   Biostatus country;
-//  State state;
-//  City city;
+  City city;
+  CountryState state;
 
   PlantSpecimen({
-    this.id,
     this.biostatus,
     this.photo,
     this.dateReceived,
@@ -52,44 +50,42 @@ class PlantSpecimen {
     this.ecosystem,
     this.recollectionAreaStatus,
     this.country,
-//    this.state,
-//    this.city,
+    this.state,
+    this.city,
   });
 
   factory PlantSpecimen.fromJson(Map<String, dynamic> json) => PlantSpecimen(
-        id: json["id"],
         biostatus: Biostatus.fromJson(json["biostatus"]),
-        photo: json["photo"],
+        // photo: json["photo"],
         dateReceived: DateTime.parse(json["date_received"]),
         numberOfSamples: json["number_of_samples"],
         description: json["description"],
-        latitude: json["latitude"],
-        longitude: json["longitude"],
+        // latitude: json["latitude"],
+        // longitude: json["longitude"],
         location: json["location"],
         complete: json["complete"],
         user: User.fromJson(json["user"]),
         family: Family.fromJson(json["family"]),
-        genus: Family.fromJson(json["genus"]),
+        genus: Genus.fromJson(json["genus"]),
         species: Species.fromJson(json["species"]),
-        status: Biostatus.fromJson(json["status"]),
+        status: Status.fromJson(json["status"]),
         ecosystem: Biostatus.fromJson(json["ecosystem"]),
         recollectionAreaStatus:
             Biostatus.fromJson(json["recolection_area_status"]),
         country: Biostatus.fromJson(json["country"]),
-//        state: State.fromJson(json["state"]),
-//        city: City.fromJson(json["city"]),
+        state: CountryState.fromJson(json["state"]),
+        city: City.fromJson(json["city"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
         "biostatus": biostatus.toJson(),
-        "photo": photo,
+        // "photo": photo,
         "date_received":
             "${dateReceived.year.toString().padLeft(4, '0')}-${dateReceived.month.toString().padLeft(2, '0')}-${dateReceived.day.toString().padLeft(2, '0')}",
         "number_of_samples": numberOfSamples,
         "description": description,
-        "latitude": latitude,
-        "longitude": longitude,
+        // "latitude": latitude,
+        // "longitude": longitude,
         "location": location,
         "complete": complete,
         "user": user.toJson(),
@@ -100,8 +96,8 @@ class PlantSpecimen {
         "ecosystem": ecosystem.toJson(),
         "recolection_area_status": recollectionAreaStatus.toJson(),
         "country": country.toJson(),
-//        "state": state.toJson(),
-//        "city": city.toJson(),
+        "state": state.toJson(),
+        "city": city.toJson(),
       };
 }
 
@@ -125,50 +121,50 @@ class Biostatus {
       };
 }
 
-//class City {
-//  int id;
-//  State state;
-//  String name;
-//
-//  City({
-//    this.id,
-//    this.state,
-//    this.name,
-//  });
-//
-//  factory City.fromJson(Map<String, dynamic> json) => City(
-//        id: json["id"],
-//        state: State.fromJson(json["state"]),
-//        name: json["name"],
-//      );
-//
-//  Map<String, dynamic> toJson() => {
-//        "id": id,
-//        "state": state.toJson(),
-//        "name": name,
-//      };
-//}
-//
-//class State {
-//  int id;
-//  Biostatus country;
-//  String name;
-//
-//  State({
-//    this.id,
-//    this.country,
-//    this.name,
-//  });
-//
-//  factory State.fromJson(Map<String, dynamic> json) => State(
-//        id: json["id"],
-//        country: Biostatus.fromJson(json["country"]),
-//        name: json["name"],
-//      );
-//
-//  Map<String, dynamic> toJson() => {
-//        "id": id,
-//        "country": country.toJson(),
-//        "name": name,
-//      };
-//}
+class City {
+  int id;
+  CountryState state;
+  String name;
+
+  City({
+    this.id,
+    this.state,
+    this.name,
+  });
+
+  factory City.fromJson(Map<String, dynamic> json) => City(
+        id: json["id"],
+        state: CountryState.fromJson(json["state"]),
+        name: json["name"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "state": state.toJson(),
+        "name": name,
+      };
+}
+
+class CountryState {
+  int id;
+  Biostatus country;
+  String name;
+
+  CountryState({
+    this.id,
+    this.country,
+    this.name,
+  });
+
+  factory CountryState.fromJson(Map<String, dynamic> json) => CountryState(
+        id: json["id"],
+        country: Biostatus.fromJson(json["country"]),
+        name: json["name"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "country": country.toJson(),
+        "name": name,
+      };
+}
