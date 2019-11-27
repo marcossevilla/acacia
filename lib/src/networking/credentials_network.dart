@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'package:plants_app/src/models/credentials.dart';
 import 'package:plants_app/src/networking/urls.dart';
 import 'package:plants_app/src/shared/preferences.dart';
-import 'package:toast/toast.dart';
 
 class CredentialsNetwork {
   UserPreferences preferences = UserPreferences();
@@ -16,13 +15,12 @@ class CredentialsNetwork {
     );
 
     res.headers.forEach((k,v) => {
-      if (k == "set-cookie") {
+      if (res.statusCode == 200 && k == "set-cookie") {
         preferences.token = v
       }
-      else if (k == "token-refresh") {
+      else if(res.statusCode == 200 && k == "token-refresh") {
         preferences.tokenRefresh = v
       }
-
     });
 
     print("Toke: ${preferences.token}");

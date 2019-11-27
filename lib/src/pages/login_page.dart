@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:plants_app/src/models/credentials.dart';
 import 'package:plants_app/src/networking/credentials_network.dart';
+import 'package:plants_app/src/shared/preferences.dart';
+import 'package:toast/toast.dart';
 
 class LoginPage extends StatefulWidget {
   static const String routeName = "login";
@@ -81,9 +83,18 @@ class _LoginPageState extends State<LoginPage> {
                   height: 50,
                   child: OutlineButton (
                     onPressed: () {
+                      UserPreferences preferences = UserPreferences();
+
                       if (_formKey.currentState.validate()) {
                         CredentialsNetwork login = CredentialsNetwork();
                         login.postLogin(Credentials(username: usernameController.text.toString(), password: passwordController.text.toString()));
+
+                        if (preferences.token != "no-token") {
+                          Toast.show("Inicio de sesión exitoso.", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+                        }
+                        else {
+                          Toast.show("No autorizado.", context, duration: Toast.LENGTH_LONG, gravity:  Toast.BOTTOM);
+                        }
                       }
                     },
                     borderSide: BorderSide(
