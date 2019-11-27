@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'user.dart';
 import 'genus.dart';
+import 'status.dart';
 import 'plant_family.dart';
 import 'plant_species.dart';
 
@@ -24,11 +25,12 @@ class PlantSpecimen {
   Family family;
   Genus genus;
   Species species;
-  Biostatus status;
+  Status status;
   Biostatus ecosystem;
   Biostatus recollectionAreaStatus;
   Biostatus country;
   City city;
+  CountryState state;
 
   PlantSpecimen({
     this.biostatus,
@@ -66,7 +68,7 @@ class PlantSpecimen {
         family: Family.fromJson(json["family"]),
         genus: Genus.fromJson(json["genus"]),
         species: Species.fromJson(json["species"]),
-        status: Biostatus.fromJson(json["status"]),
+        status: Status.fromJson(json["status"]),
         ecosystem: Biostatus.fromJson(json["ecosystem"]),
         recollectionAreaStatus:
             Biostatus.fromJson(json["recolection_area_status"]),
@@ -77,13 +79,13 @@ class PlantSpecimen {
 
   Map<String, dynamic> toJson() => {
         "biostatus": biostatus.toJson(),
-        "photo": photo,
+        // "photo": photo,
         "date_received":
             "${dateReceived.year.toString().padLeft(4, '0')}-${dateReceived.month.toString().padLeft(2, '0')}-${dateReceived.day.toString().padLeft(2, '0')}",
         "number_of_samples": numberOfSamples,
         "description": description,
-        "latitude": latitude,
-        "longitude": longitude,
+        // "latitude": latitude,
+        // "longitude": longitude,
         "location": location,
         "complete": complete,
         "user": user.toJson(),
@@ -132,7 +134,7 @@ class City {
 
   factory City.fromJson(Map<String, dynamic> json) => City(
         id: json["id"],
-        state: State.fromJson(json["state"]),
+        state: CountryState.fromJson(json["state"]),
         name: json["name"],
       );
 
@@ -148,13 +150,13 @@ class CountryState {
   Biostatus country;
   String name;
 
-  State({
+  CountryState({
     this.id,
     this.country,
     this.name,
   });
 
-  factory State.fromJson(Map<String, dynamic> json) => State(
+  factory CountryState.fromJson(Map<String, dynamic> json) => CountryState(
         id: json["id"],
         country: Biostatus.fromJson(json["country"]),
         name: json["name"],

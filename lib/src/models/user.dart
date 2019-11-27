@@ -48,7 +48,7 @@ class User {
   Map<String, dynamic> toJson() => {
         "id": id,
         "profile": profile,
-        "last_login": lastLogin.toIso8601String(),
+        "last_login": lastLogin.toString(),
         "is_superuser": isSuperuser,
         "username": username,
         "first_name": firstName,
@@ -56,7 +56,7 @@ class User {
         "email": email,
         "is_staff": isStaff,
         "is_active": isActive,
-        "date_joined": dateJoined.toIso8601String(),
+        "date_joined": dateJoined.toString(),
         "name": name,
         "groups": List<dynamic>.from(groups.map((x) => x)),
       };

@@ -25,12 +25,16 @@ class SpecimenNetwork {
     }
   }
 
-  Future<void> postSpecimen(PlantSpecimen specimen) async {
+  Future<bool> postSpecimen(PlantSpecimen specimen) async {
     final res = await http.post(
       '$baseURL/specimen',
       body: jsonEncode(specimen.toJson()),
     );
 
-    print(res.statusCode);
+    if (res.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
