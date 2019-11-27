@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../utils/acacia.dart';
 import '../widgets/bg_nav_bar.dart';
-import '../search/search_delegate.dart';
 
 import 'no_login_page.dart';
 import 'specimen_page.dart';
@@ -23,23 +21,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
-      appBar: AppBar(
-        elevation: 0.0,
-        title: Text(
-          appName,
-          style: Theme.of(context).textTheme.title.copyWith(
-                color: Colors.white,
-              ),
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              showSearch(context: context, delegate: SpecimenSearch());
-            },
-          )
-        ],
-      ),
       body: _loadPage(currentIndex),
       bottomNavigationBar: BigBottomNavBar(
         currentIndex: currentIndex,
