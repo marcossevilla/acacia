@@ -1,8 +1,11 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
-import 'package:plants_app/src/models/plant_specimen.dart';
-import 'package:plants_app/src/networking/urls.dart';
+
+import '../networking/urls.dart';
+import '../shared/preferences.dart';
+import '../models/plant_specimen.dart';
+
+final prefs = UserPreferences();
 
 class SpecimenNetwork {
   Future<List<PlantSpecimen>> getAllSpecimens() async {
@@ -31,6 +34,10 @@ class SpecimenNetwork {
     final res = await http.post(
       '$baseURL/plant_specimen',
       body: jsonEncode(specimen.toJson()),
+      headers: {
+        'token-access': prefs.token,
+        'token-refresh': prefs.tokenRefresh,
+      },
     );
 
     print(res.statusCode);

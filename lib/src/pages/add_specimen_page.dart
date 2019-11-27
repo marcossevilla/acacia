@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plants_app/src/shared/preferences.dart';
 
 import '../models/user.dart';
 import '../models/genus.dart';
@@ -11,6 +12,8 @@ import '../networking/specimen_props.dart';
 import '../networking/family_network.dart';
 import '../networking/species_network.dart';
 import '../networking/specimen_network.dart';
+
+final prefs = UserPreferences();
 
 class AddSpecimen extends StatefulWidget {
   static const String routeName = 'addSpecimen';
@@ -388,7 +391,7 @@ class _AddSpecimenState extends State<AddSpecimen> {
               SizedBox(height: 30.0),
               FlatButton(
                 child: Text('Registrar', style: TextStyle(color: Colors.white)),
-                onPressed: _postNewSpecimen,
+                onPressed: prefs.token != 'no-token' ? _postNewSpecimen : null,
                 color: Theme.of(context).primaryColor,
               )
             ],
