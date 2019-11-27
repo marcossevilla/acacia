@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class SpecimenSearch extends SearchDelegate {
   @override
-  String get searchFieldLabel => 'Planta...';
+  String get searchFieldLabel => 'Buscar un espécimen';
 
   @override
   List<Widget> buildActions(BuildContext context) {

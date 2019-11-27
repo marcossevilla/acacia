@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../search/search_delegate.dart';
 
 import '../models/plant_specimen.dart';
 import '../networking/specimen_network.dart';
@@ -40,14 +41,28 @@ class _SpecimenPageState extends State<SpecimenPage> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Especímenes'),
-          bottom: TabBar(
+        bottom: TabBar(
             tabs: <Widget>[
               Tab(text: 'Plantas'),
               Tab(text: 'Hongos'),
             ],
           ),
+        elevation: 0.0,
+        title: Text(
+          "Especimenes",
+          style: Theme.of(context).textTheme.title.copyWith(
+                color: Colors.white,
+              ),
         ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              showSearch(context: context, delegate: SpecimenSearch());
+            },
+          )
+        ],
+      ),
         body: TabBarView(
           children: <Widget>[
             Container(
