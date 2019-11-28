@@ -30,12 +30,12 @@ class _LoginPageState extends State<LoginPage> {
       child: Form(
         key: _formKey,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 20),
+          padding: EdgeInsets.symmetric(vertical: 60, horizontal: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(bottom: 30),
+                padding: EdgeInsets.only(bottom: 30),
                 child: Text("Iniciar sesión",
                     style: TextStyle(
                         fontSize: 20,
@@ -43,33 +43,31 @@ class _LoginPageState extends State<LoginPage> {
                         color: Colors.grey)),
               ),
               TextFormField(
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Introduzca un nombre de usuario';
-                    }
-                  },
+                  validator: (value) =>
+                      value.isEmpty ? 'Introduzca un usuario' : null,
                   controller: usernameController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "Nombre de usuario"),
+                    border: OutlineInputBorder(),
+                    labelText: "Nombre de usuario",
+                  ),
                   style: TextStyle(fontSize: 16)),
               Padding(
-                padding: const EdgeInsets.only(top: 30),
+                padding: EdgeInsets.only(top: 30),
                 child: TextFormField(
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Introduzca una contraseña';
-                      }
-                    },
-                    controller: passwordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(), labelText: "Contraseña"),
-                    style: TextStyle(fontSize: 16)),
+                  validator: (value) =>
+                      value.isEmpty ? 'Introduzca una contraseña' : null,
+                  controller: passwordController,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "Contraseña",
+                  ),
+                  style: TextStyle(fontSize: 16),
+                ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 30),
+                padding: EdgeInsets.only(top: 30),
                 child: SizedBox(
                     height: 50,
                     child: OutlineButton(
@@ -88,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                             Toast.show(
                               "Inicio de sesión exitoso.",
                               context,
-                              duration: Toast.LENGTH_SHORT,
+                              duration: Toast.LENGTH_LONG,
                               gravity: Toast.BOTTOM,
                             );
                           } else {

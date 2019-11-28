@@ -392,7 +392,7 @@ class _AddSpecimenState extends State<AddSpecimen> {
               SizedBox(height: 30.0),
               FlatButton(
                 child: Text('Registrar', style: TextStyle(color: Colors.white)),
-                onPressed: prefs.token != 'no-token' ? _postNewSpecimen : null,
+                onPressed: _postNewSpecimen,
                 color: Theme.of(context).primaryColor,
               )
             ],
@@ -404,7 +404,6 @@ class _AddSpecimenState extends State<AddSpecimen> {
 
   _postNewSpecimen() async {
     if (!_formKey.currentState.validate()) return;
-
     _formKey.currentState.save();
 
     NestedSpecimen _specimen = NestedSpecimen(
@@ -429,9 +428,7 @@ class _AddSpecimenState extends State<AddSpecimen> {
       city: _currentCity.id,
     );
 
-    bool itWorked = await _specimenNetwork.postSpecimen(_specimen);
-
-    print(itWorked);
+    await _specimenNetwork.postSpecimen(_specimen);
 
     Navigator.pop(context);
   }

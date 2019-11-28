@@ -2,6 +2,10 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:plants_app/src/models/user.dart';
 import 'package:plants_app/src/networking/urls.dart';
+import 'package:plants_app/src/shared/preferences.dart';
+import 'package:plants_app/src/utils/utils.dart';
+
+final prefs = UserPreferences();
 
 class RegisterNetwork {
   Future<void> postUser(User user) async {
@@ -10,6 +14,9 @@ class RegisterNetwork {
       headers: {"Content-Type": "application/json"},
       body: jsonEncode(user.toJson()),
     );
+
+    refreshTokens(res);
+
     print(res.statusCode);
     print(res.body);
     print(user.toJson());

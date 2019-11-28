@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:plants_app/src/utils/utils.dart';
 
 import '../networking/urls.dart';
 import '../shared/preferences.dart';
@@ -14,7 +15,9 @@ class SpecimenNetwork {
 
     final res = await http.get('$baseURL/plant_specimen/');
 
-    print(res.statusCode);
+    refreshTokens(res);
+
+    // print(res.statusCode);
 
     if (res.statusCode == 200) {
       var data = jsonDecode(res.body);
@@ -33,16 +36,18 @@ class SpecimenNetwork {
 
   Future<bool> postSpecimen(NestedSpecimen specimen) async {
     final res = await http.post(
-      '$baseURL/plant_specimen',
+      '$baseURL/plant_specimen/',
       body: jsonEncode(specimen.toJson()),
       headers: {
-        'Content-Type': 'application/json',
-        // 'token-access': prefs.token,
-        // 'token-refresh': prefs.tokenRefresh,
+        "Content-Type": "application/json",
+        'Cookie': '${prefs.token};${prefs.tokenRefresh}',
+        // 'Cookie': '${prefs.tokenRefresh}',
       },
     );
 
-    print(res.statusCode);
+    refreshTokens(res);
+
+    print('Registro especimen: ${res.statusCode}');
 
     if (res.statusCode == 200) {
       return true;

@@ -6,10 +6,24 @@ import 'package:plants_app/src/models/genus.dart';
 import 'package:plants_app/src/models/plant_specimen.dart';
 import 'package:plants_app/src/models/status.dart';
 import 'package:plants_app/src/networking/urls.dart';
+import 'package:plants_app/src/shared/preferences.dart';
+import 'package:plants_app/src/utils/utils.dart';
+
+final prefs = UserPreferences();
 
 class SpecimenPropsNetwork {
   _getData(String url) async {
-    final res = await http.get(url);
+    final res = await http.get(
+      url,
+      headers: {
+        "Content-Type": "application/json",
+        'Cookie': '${prefs.token};${prefs.tokenRefresh}',
+        // 'Cookie': '${prefs.tokenRefresh}',
+      },
+    );
+
+    refreshTokens(res);
+
     if (res.statusCode == 200) {
       var data = jsonDecode(res.body);
       if (data == null) return [];

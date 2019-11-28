@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:plants_app/src/models/credentials.dart';
-import 'package:plants_app/src/networking/urls.dart';
-import 'package:plants_app/src/shared/preferences.dart';
+
+import '../utils/utils.dart';
+import '../networking/urls.dart';
+import '../shared/preferences.dart';
+import '../models/credentials.dart';
 
 class CredentialsNetwork {
   UserPreferences preferences = UserPreferences();
@@ -14,16 +16,9 @@ class CredentialsNetwork {
       body: jsonEncode(credentials.toJson()),
     );
 
-    res.headers.forEach((k,v) => {
-      if (res.statusCode == 200 && k == "set-cookie") {
-        preferences.token = v
-      }
-      else if(res.statusCode == 200 && k == "token-refresh") {
-        preferences.tokenRefresh = v
-      }
-    });
+    refreshTokens(res);
 
-    print("Toke: ${preferences.token}");
+    print("Token: ${preferences.token}");
     print("Token refresh: ${preferences.tokenRefresh}");
 
     print(res.statusCode);
