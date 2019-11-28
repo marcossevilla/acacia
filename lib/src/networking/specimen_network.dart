@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:plants_app/src/models/nested_specimen.dart';
 
 import '../networking/urls.dart';
 import '../shared/preferences.dart';
 import '../models/plant_specimen.dart';
+import '../models/nested_specimen.dart';
 
 final prefs = UserPreferences();
 
@@ -37,8 +37,8 @@ class SpecimenNetwork {
       body: jsonEncode(specimen.toJson()),
       headers: {
         'Content-Type': 'application/json',
-        'token-access': prefs.token,
-        'token-refresh': prefs.tokenRefresh,
+        // 'token-access': prefs.token,
+        // 'token-refresh': prefs.tokenRefresh,
       },
     );
 
