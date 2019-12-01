@@ -137,7 +137,7 @@ class _AddSpecimenState extends State<AddSpecimen> {
                           Text('Especie'),
                           Spacer(),
                           DropdownButton<Species>(
-                            value: _currentSpecies,
+                            // value: _currentSpecies,
                             items: snapshot.data
                                 .map(
                                   (f) => DropdownMenuItem<Species>(
@@ -167,7 +167,7 @@ class _AddSpecimenState extends State<AddSpecimen> {
                           Text('Bioestado'),
                           Spacer(),
                           DropdownButton<Biostatus>(
-                            value: _currentBiostatus,
+                            // value: _currentBiostatus,
                             items: snapshot.data
                                 .map(
                                   (f) => DropdownMenuItem<Biostatus>(
@@ -197,7 +197,7 @@ class _AddSpecimenState extends State<AddSpecimen> {
                           Text('Género'),
                           Spacer(),
                           DropdownButton<Genus>(
-                            value: _currentGenus,
+                            // value: _currentGenus,
                             items: snapshot.data
                                 .map(
                                   (f) => DropdownMenuItem<Genus>(
@@ -227,7 +227,7 @@ class _AddSpecimenState extends State<AddSpecimen> {
                           Text('Estado'),
                           Spacer(),
                           DropdownButton<Status>(
-                            value: _currentStatus,
+                            // value: _currentStatus,
                             items: snapshot.data
                                 .map(
                                   (f) => DropdownMenuItem<Status>(
@@ -257,7 +257,7 @@ class _AddSpecimenState extends State<AddSpecimen> {
                           Text('Ecosistema'),
                           Spacer(),
                           DropdownButton<Biostatus>(
-                            value: _currentEcosystem,
+                            // value: _currentEcosystem,
                             items: snapshot.data
                                 .map(
                                   (f) => DropdownMenuItem<Biostatus>(
@@ -284,10 +284,10 @@ class _AddSpecimenState extends State<AddSpecimen> {
                       return Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
-                          Text('Áreas de recolección'),
+                          Text('Área de recolección'),
                           Spacer(),
                           DropdownButton<Biostatus>(
-                            value: _currentRecollectionArea,
+                            // value: _currentRecollectionArea,
                             items: snapshot.data
                                 .map(
                                   (f) => DropdownMenuItem<Biostatus>(
@@ -317,7 +317,7 @@ class _AddSpecimenState extends State<AddSpecimen> {
                           Text('País'),
                           Spacer(),
                           DropdownButton<Biostatus>(
-                            value: _currentCountry,
+                            // value: _currentCountry,
                             items: snapshot.data
                                 .map(
                                   (f) => DropdownMenuItem<Biostatus>(
@@ -348,7 +348,7 @@ class _AddSpecimenState extends State<AddSpecimen> {
                           Text('Estado'),
                           Spacer(),
                           DropdownButton<CountryState>(
-                            value: _currentState,
+                            // value: _currentState,
                             items: snapshot.data
                                 .map(
                                   (f) => DropdownMenuItem<CountryState>(
@@ -378,7 +378,7 @@ class _AddSpecimenState extends State<AddSpecimen> {
                           Text('Ciudad'),
                           Spacer(),
                           DropdownButton<City>(
-                            value: _currentCity,
+                            // value: _currentCity,
                             items: snapshot.data
                                 .map(
                                   (f) => DropdownMenuItem<City>(
