@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import '../widgets/bg_nav_bar.dart';
 
 import 'no_login_page.dart';
 import 'specimen_page.dart';
 import 'add_specimen_page.dart';
 import 'notification_page.dart';
+
+import '../widgets/bg_nav_bar.dart';
 
 class HomePage extends StatefulWidget {
   static const String routeName = 'home';

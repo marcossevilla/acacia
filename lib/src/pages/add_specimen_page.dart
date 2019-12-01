@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:plants_app/src/models/nested_specimen.dart';
 import 'package:plants_app/src/shared/preferences.dart';
 
-import '../models/user.dart';
 import '../models/genus.dart';
 import '../models/status.dart';
 import '../models/plant_family.dart';
 import '../models/plant_species.dart';
 import '../models/plant_specimen.dart';
 
-import '../networking/specimen_props.dart';
 import '../networking/family_network.dart';
 import '../networking/species_network.dart';
 import '../networking/specimen_network.dart';
@@ -27,85 +25,23 @@ class AddSpecimen extends StatefulWidget {
 
 class _AddSpecimenState extends State<AddSpecimen> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   FamilyNetwork _familyNetwork = FamilyNetwork();
   SpeciesNetwork _speciesNetwork = SpeciesNetwork();
   SpecimenNetwork _specimenNetwork = SpecimenNetwork();
-  SpecimenPropsNetwork _propsNetwork = SpecimenPropsNetwork();
 
   PlantSpecimen _plantSpecimen = PlantSpecimen();
 
-  List<Status> _status = List();
   Status _currentStatus;
-
-  List<Biostatus> _biostatus = List();
   Biostatus _currentBiostatus;
-
-  List<Genus> _genuses = List();
   Genus _currentGenus;
-
-  List<Family> _families = List();
   Family _currentFamily;
-
-  List<Species> _speciesList = List();
   Species _currentSpecies;
-
-  List<Biostatus> _ecosystems = List();
   Biostatus _currentEcosystem;
-
-  List<Biostatus> _recollectionArea = List();
   Biostatus _currentRecollectionArea;
-
-  List<Biostatus> _countries = List();
   Biostatus _currentCountry;
-
-  List<City> _cities = List();
   City _currentCity;
-
-  List<CountryState> _states = List();
   CountryState _currentState;
-
-  _fetchData() async {
-    var fams = await _familyNetwork.getAllFamilies();
-    var species = await _speciesNetwork.getAllSpecies();
-    var biostatus = await _propsNetwork.getBiostatuses();
-    var genuses = await _propsNetwork.getGenuses();
-    var ecosystems = await _propsNetwork.getEcosystems();
-    var recs = await _propsNetwork.getRecollections();
-    var countries = await _propsNetwork.getCountries();
-    var cities = await _propsNetwork.getCities();
-    var states = await _propsNetwork.getStates();
-    var status = await _propsNetwork.getStatus();
-
-    setState(() {
-      _families = fams;
-      _speciesList = species;
-      _biostatus = biostatus;
-      _genuses = genuses;
-      _ecosystems = ecosystems;
-      _recollectionArea = recs;
-      _countries = countries;
-      _cities = cities;
-      _states = states;
-      _status = status;
-
-      _currentFamily = _families[0];
-      _currentSpecies = _speciesList[0];
-      _currentBiostatus = _biostatus[0];
-      _currentGenus = genuses[0];
-      _currentEcosystem = _ecosystems[0];
-      _currentRecollectionArea = _recollectionArea[0];
-      _currentCountry = _countries[0];
-      _currentCity = _cities[0];
-      _currentState = _states[0];
-      _currentStatus = _status[0];
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchData();
-  }
 
   @override
   void setState(fn) {
@@ -118,284 +54,359 @@ class _AddSpecimenState extends State<AddSpecimen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Registrar nuevo especimen')),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
-        child: Form(
-          key: _formKey,
-          child: ListView(
-            children: <Widget>[
-              TextFormField(
-                textCapitalization: TextCapitalization.sentences,
-                decoration: InputDecoration(labelText: 'Nombre común'),
-                onSaved: (value) => setState(
-                  () => _plantSpecimen.species.commonName = value,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: <Widget>[
+                TextFormField(
+                  textCapitalization: TextCapitalization.sentences,
+                  decoration: InputDecoration(labelText: 'Nombre común'),
+                  onSaved: (value) => setState(
+                    () => _plantSpecimen.species.commonName = value,
+                  ),
+                  validator: (value) =>
+                      value.isEmpty ? 'No has llenado el campo!' : null,
                 ),
-                validator: (value) =>
-                    value.isEmpty ? 'No has llenado el campo!' : null,
-              ),
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Descripción'),
-                onSaved: (value) => setState(
-                  () => _plantSpecimen.description = value,
+                TextFormField(
+                  decoration: InputDecoration(labelText: 'Descripción'),
+                  onSaved: (value) => setState(
+                    () => _plantSpecimen.description = value,
+                  ),
+                  validator: (value) =>
+                      value.isEmpty ? 'No has llenado el campo!' : null,
                 ),
-                validator: (value) =>
-                    value.isEmpty ? 'No has llenado el campo!' : null,
-              ),
-              TextFormField(
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                    labelText: 'Cantidad ejemplares colectados'),
-                onSaved: (value) => setState(
-                  () => _plantSpecimen.numberOfSamples = int.parse(value),
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                      labelText: 'Cantidad ejemplares colectados'),
+                  onSaved: (value) => setState(
+                    () => _plantSpecimen.numberOfSamples = int.parse(value),
+                  ),
+                  validator: (value) =>
+                      value.isEmpty ? 'No has llenado el campo!' : null,
                 ),
-                validator: (value) =>
-                    value.isEmpty ? 'No has llenado el campo!' : null,
-              ),
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Ubicación'),
-                onSaved: (value) => setState(
-                  () => _plantSpecimen.location = value,
+                TextFormField(
+                  decoration: InputDecoration(labelText: 'Ubicación'),
+                  onSaved: (value) => setState(
+                    () => _plantSpecimen.location = value,
+                  ),
+                  validator: (value) =>
+                      value.isEmpty ? 'No has llenado el campo!' : null,
                 ),
-                validator: (value) =>
-                    value.isEmpty ? 'No has llenado el campo!' : null,
-              ),
-              SizedBox(height: 30.0),
-              _families.isEmpty
-                  ? Center(child: CircularProgressIndicator())
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Text('Bioestado'),
-                        Spacer(),
-                        DropdownButton<Biostatus>(
-                          value: _currentBiostatus,
-                          items: _biostatus
-                              .map(
-                                (f) => DropdownMenuItem<Biostatus>(
-                                  value: f,
-                                  child: Text(f.name),
-                                ),
-                              )
-                              .toList(),
-                          onChanged: (value) =>
-                              setState(() => _currentBiostatus = value),
-                        ),
-                      ],
-                    ),
-              SizedBox(height: 20.0),
-              _speciesList.isEmpty
-                  ? Center(child: CircularProgressIndicator())
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Text('Especie'),
-                        Spacer(),
-                        DropdownButton<Species>(
-                          value: _currentSpecies,
-                          items: _speciesList
-                              .map(
-                                (s) => DropdownMenuItem<Species>(
-                                  value: s,
-                                  child: Text(s.commonName),
-                                ),
-                              )
-                              .toList(),
-                          onChanged: (value) =>
-                              setState(() => _currentSpecies = value),
-                        ),
-                      ],
-                    ),
-              SizedBox(height: 20.0),
-              _genuses.isEmpty
-                  ? Center(child: CircularProgressIndicator())
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Text('Género'),
-                        Spacer(),
-                        DropdownButton<Genus>(
-                          value: _currentGenus,
-                          items: _genuses
-                              .map(
-                                (g) => DropdownMenuItem<Genus>(
-                                  value: g,
-                                  child: Text(g.name),
-                                ),
-                              )
-                              .toList(),
-                          onChanged: (value) =>
-                              setState(() => _currentGenus = value),
-                        ),
-                      ],
-                    ),
-              SizedBox(height: 20.0),
-              _families.isEmpty
-                  ? Center(child: CircularProgressIndicator())
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Text('Familia'),
-                        Spacer(),
-                        DropdownButton<Family>(
-                          value: _currentFamily,
-                          items: _families
-                              .map(
-                                (f) => DropdownMenuItem<Family>(
-                                  value: f,
-                                  child: Text(f.name),
-                                ),
-                              )
-                              .toList(),
-                          onChanged: (value) =>
-                              setState(() => _currentFamily = value),
-                        ),
-                      ],
-                    ),
-              SizedBox(height: 20.0),
-              _status.isEmpty
-                  ? Center(child: CircularProgressIndicator())
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Text('Estado'),
-                        Spacer(),
-                        DropdownButton<Status>(
-                          value: _currentStatus,
-                          items: _status
-                              .map(
-                                (s) => DropdownMenuItem<Status>(
-                                  value: s,
-                                  child: Text(s.name),
-                                ),
-                              )
-                              .toList(),
-                          onChanged: (value) =>
-                              setState(() => _currentStatus = value),
-                        ),
-                      ],
-                    ),
-              SizedBox(height: 20.0),
-              _ecosystems.isEmpty
-                  ? Center(child: CircularProgressIndicator())
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Text('Ecosistema'),
-                        Spacer(),
-                        DropdownButton<Biostatus>(
-                          value: _currentEcosystem,
-                          items: _ecosystems
-                              .map(
-                                (e) => DropdownMenuItem<Biostatus>(
-                                  value: e,
-                                  child: Text(e.name),
-                                ),
-                              )
-                              .toList(),
-                          onChanged: (value) =>
-                              setState(() => _currentEcosystem = value),
-                        ),
-                      ],
-                    ),
-              SizedBox(height: 20.0),
-              _recollectionArea.isEmpty
-                  ? Center(child: CircularProgressIndicator())
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Text('Área de recolección'),
-                        Spacer(),
-                        DropdownButton<Biostatus>(
-                          value: _currentRecollectionArea,
-                          items: _recollectionArea
-                              .map(
-                                (s) => DropdownMenuItem<Biostatus>(
-                                  value: s,
-                                  child: Text(s.name),
-                                ),
-                              )
-                              .toList(),
-                          onChanged: (value) =>
-                              setState(() => _currentRecollectionArea = value),
-                        ),
-                      ],
-                    ),
-              SizedBox(height: 20.0),
-              _countries.isEmpty
-                  ? Center(child: CircularProgressIndicator())
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Text('País'),
-                        Spacer(),
-                        DropdownButton<Biostatus>(
-                          value: _currentCountry,
-                          items: _countries
-                              .map(
-                                (s) => DropdownMenuItem<Biostatus>(
-                                  value: s,
-                                  child: Text(s.name),
-                                ),
-                              )
-                              .toList(),
-                          onChanged: (value) =>
-                              setState(() => _currentCountry = value),
-                        ),
-                      ],
-                    ),
-              SizedBox(height: 20.0),
-              _states.isEmpty
-                  ? Center(child: CircularProgressIndicator())
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Text('Estado/Provincia'),
-                        Spacer(),
-                        DropdownButton<CountryState>(
-                          value: _currentState,
-                          items: _states
-                              .map(
-                                (s) => DropdownMenuItem<CountryState>(
-                                  value: s,
-                                  child: Text(s.name),
-                                ),
-                              )
-                              .toList(),
-                          onChanged: (value) =>
-                              setState(() => _currentState = value),
-                        ),
-                      ],
-                    ),
-              SizedBox(height: 20.0),
-              _cities.isEmpty
-                  ? Center(child: CircularProgressIndicator())
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Text('Ciudad'),
-                        Spacer(),
-                        DropdownButton<City>(
-                          value: _currentCity,
-                          items: _cities
-                              .map(
-                                (s) => DropdownMenuItem<City>(
-                                  value: s,
-                                  child: Text(s.name),
-                                ),
-                              )
-                              .toList(),
-                          onChanged: (value) =>
-                              setState(() => _currentCity = value),
-                        ),
-                      ],
-                    ),
-              SizedBox(height: 30.0),
-              FlatButton(
-                child: Text('Registrar', style: TextStyle(color: Colors.white)),
-                onPressed: _postNewSpecimen,
-                color: Theme.of(context).primaryColor,
-              )
-            ],
+                SizedBox(height: 20.0),
+                FutureBuilder(
+                  future: _familyNetwork.getAllFamilies(),
+                  builder: (context, AsyncSnapshot<List<Family>> snapshot) {
+                    if (snapshot.hasData) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Text('Familia'),
+                          Spacer(),
+                          DropdownButton<Family>(
+                            // value: _currentFamily,
+                            items: snapshot.data
+                                .map(
+                                  (f) => DropdownMenuItem<Family>(
+                                    value: f,
+                                    child: Text(f.name),
+                                  ),
+                                )
+                                .toList(),
+                            onChanged: (value) => setState(
+                              () => _currentFamily = value,
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                  },
+                ),
+                FutureBuilder(
+                  future: _speciesNetwork.getAllSpecies(),
+                  builder: (context, AsyncSnapshot<List<Species>> snapshot) {
+                    if (snapshot.hasData) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Text('Especie'),
+                          Spacer(),
+                          DropdownButton<Species>(
+                            value: _currentSpecies,
+                            items: snapshot.data
+                                .map(
+                                  (f) => DropdownMenuItem<Species>(
+                                    value: f,
+                                    child: Text(f.commonName),
+                                  ),
+                                )
+                                .toList(),
+                            onChanged: (value) => setState(
+                              () => _currentSpecies = value,
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return CircularProgressIndicator();
+                    }
+                  },
+                ),
+                FutureBuilder(
+                  future: _specimenNetwork.getBiostatuses(),
+                  builder: (context, AsyncSnapshot<List<Biostatus>> snapshot) {
+                    if (snapshot.hasData) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Text('Bioestado'),
+                          Spacer(),
+                          DropdownButton<Biostatus>(
+                            value: _currentBiostatus,
+                            items: snapshot.data
+                                .map(
+                                  (f) => DropdownMenuItem<Biostatus>(
+                                    value: f,
+                                    child: Text(f.name),
+                                  ),
+                                )
+                                .toList(),
+                            onChanged: (value) => setState(
+                              () => _currentBiostatus = value,
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return CircularProgressIndicator();
+                    }
+                  },
+                ),
+                FutureBuilder(
+                  future: _specimenNetwork.getGenuses(),
+                  builder: (context, AsyncSnapshot<List<Genus>> snapshot) {
+                    if (snapshot.hasData) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Text('Género'),
+                          Spacer(),
+                          DropdownButton<Genus>(
+                            value: _currentGenus,
+                            items: snapshot.data
+                                .map(
+                                  (f) => DropdownMenuItem<Genus>(
+                                    value: f,
+                                    child: Text(f.name),
+                                  ),
+                                )
+                                .toList(),
+                            onChanged: (value) => setState(
+                              () => _currentGenus = value,
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return CircularProgressIndicator();
+                    }
+                  },
+                ),
+                FutureBuilder(
+                  future: _specimenNetwork.getStatus(),
+                  builder: (context, AsyncSnapshot<List<Status>> snapshot) {
+                    if (snapshot.hasData) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Text('Estado'),
+                          Spacer(),
+                          DropdownButton<Status>(
+                            value: _currentStatus,
+                            items: snapshot.data
+                                .map(
+                                  (f) => DropdownMenuItem<Status>(
+                                    value: f,
+                                    child: Text(f.name),
+                                  ),
+                                )
+                                .toList(),
+                            onChanged: (value) => setState(
+                              () => _currentStatus = value,
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return CircularProgressIndicator();
+                    }
+                  },
+                ),
+                FutureBuilder(
+                  future: _specimenNetwork.getEcosystems(),
+                  builder: (context, AsyncSnapshot<List<Biostatus>> snapshot) {
+                    if (snapshot.hasData) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Text('Ecosistema'),
+                          Spacer(),
+                          DropdownButton<Biostatus>(
+                            value: _currentEcosystem,
+                            items: snapshot.data
+                                .map(
+                                  (f) => DropdownMenuItem<Biostatus>(
+                                    value: f,
+                                    child: Text(f.name),
+                                  ),
+                                )
+                                .toList(),
+                            onChanged: (value) => setState(
+                              () => _currentEcosystem = value,
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return CircularProgressIndicator();
+                    }
+                  },
+                ),
+                FutureBuilder(
+                  future: _specimenNetwork.getRecollections(),
+                  builder: (context, AsyncSnapshot<List<Biostatus>> snapshot) {
+                    if (snapshot.hasData) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Text('Áreas de recolección'),
+                          Spacer(),
+                          DropdownButton<Biostatus>(
+                            value: _currentRecollectionArea,
+                            items: snapshot.data
+                                .map(
+                                  (f) => DropdownMenuItem<Biostatus>(
+                                    value: f,
+                                    child: Text(f.name),
+                                  ),
+                                )
+                                .toList(),
+                            onChanged: (value) => setState(
+                              () => _currentRecollectionArea = value,
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return CircularProgressIndicator();
+                    }
+                  },
+                ),
+                FutureBuilder(
+                  future: _specimenNetwork.getCountries(),
+                  builder: (context, AsyncSnapshot<List<Biostatus>> snapshot) {
+                    if (snapshot.hasData) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Text('País'),
+                          Spacer(),
+                          DropdownButton<Biostatus>(
+                            value: _currentCountry,
+                            items: snapshot.data
+                                .map(
+                                  (f) => DropdownMenuItem<Biostatus>(
+                                    value: f,
+                                    child: Text(f.name),
+                                  ),
+                                )
+                                .toList(),
+                            onChanged: (value) => setState(
+                              () => _currentCountry = value,
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return CircularProgressIndicator();
+                    }
+                  },
+                ),
+                FutureBuilder(
+                  future: _specimenNetwork.getStates(),
+                  builder:
+                      (context, AsyncSnapshot<List<CountryState>> snapshot) {
+                    if (snapshot.hasData) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Text('Estado'),
+                          Spacer(),
+                          DropdownButton<CountryState>(
+                            value: _currentState,
+                            items: snapshot.data
+                                .map(
+                                  (f) => DropdownMenuItem<CountryState>(
+                                    value: f,
+                                    child: Text(f.name),
+                                  ),
+                                )
+                                .toList(),
+                            onChanged: (value) => setState(
+                              () => _currentState = value,
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return CircularProgressIndicator();
+                    }
+                  },
+                ),
+                FutureBuilder(
+                  future: _specimenNetwork.getCities(),
+                  builder: (context, AsyncSnapshot<List<City>> snapshot) {
+                    if (snapshot.hasData) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Text('Ciudad'),
+                          Spacer(),
+                          DropdownButton<City>(
+                            value: _currentCity,
+                            items: snapshot.data
+                                .map(
+                                  (f) => DropdownMenuItem<City>(
+                                    value: f,
+                                    child: Text(f.name),
+                                  ),
+                                )
+                                .toList(),
+                            onChanged: (value) => setState(
+                              () => _currentCity = value,
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return CircularProgressIndicator();
+                    }
+                  },
+                ),
+                SizedBox(height: 30.0),
+                FlatButton(
+                  child:
+                      Text('Registrar', style: TextStyle(color: Colors.white)),
+                  onPressed: _postNewSpecimen,
+                  color: Theme.of(context).primaryColor,
+                )
+              ],
+            ),
           ),
         ),
       ),
